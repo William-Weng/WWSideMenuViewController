@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "wwprint",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/William-Weng/WWPrint",
+      "state" : {
+        "revision" : "8f5928f5d36624d77f8fc563fd8e31a59cfac6b6",
+        "version" : "1.3.1"
+      }
+    },
+    {
+      "identity" : "wwsidemenuviewcontroller",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/William-Weng/WWSideMenuViewController",
+      "state" : {
+        "revision" : "ef1c587e9a9f6911f6ea0a3fc94e53b2b1875ce1",
+        "version" : "1.0.0"
+      }
+    }
+  ],
+  "version" : 2
+}
