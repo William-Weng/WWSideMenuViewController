@@ -44,5 +44,13 @@ extension Constant {
             }
         }
     }
+    
+    // MARK: - 選單彈出方向
+    public enum MenuPopupDirection {
+        case up
+        case down
+        case left
+        case right
+    }
 }
 

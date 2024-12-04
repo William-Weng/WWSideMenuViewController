@@ -23,10 +23,10 @@ dependencies: [
 ## 可用函式
 |函式|說明|
 |-|-|
-|display(duration:curve:)|顯示側邊選單|
-|dismiss(duration:curve:)|隱藏側邊選單|
-|backFirstItemViewController(duration:curve:)|回到一開始的頁面 (第一頁)|
-|changeItemViewController(_:duration:curve:)|切換頁面|
+|display(with:duration:curve:)|顯示側邊選單|
+|dismiss(with:duration:curve:)|隱藏側邊選單|
+|backFirstItemViewController(with:duration:curve:)|回到一開始的頁面 (第一頁)|
+|changeItemViewController(_:with:duration:curve:)|切換頁面|
 
 ## WWSideMenuViewControllerDelegate
 |函式|說明|

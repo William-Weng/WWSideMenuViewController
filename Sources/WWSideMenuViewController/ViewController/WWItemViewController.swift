@@ -15,27 +15,29 @@ public extension WWItemViewController {
     
     /// 顯示側邊選單
     /// - Parameters:
+    ///   - direction: 選單彈出的方向
     ///   - duration: 動畫時間
     ///   - curve: 動畫型式
     /// - Returns: Bool
-    func display(duration: TimeInterval = 0.25, curve: UIView.AnimationCurve = .linear) -> Bool {
+    func display(with direction: Constant.MenuPopupDirection = .right, duration: TimeInterval = 0.25, curve: UIView.AnimationCurve = .linear) -> Bool {
         
         guard let sideMenuController = parentViewController() as WWSideMenuViewController? else { return false }
         
-        sideMenuController.display(duration: duration, curve: curve)
+        sideMenuController.display(with: direction, duration: duration, curve: curve)
         return true
     }
     
     /// 隱藏側邊選單
     /// - Parameters:
+    ///   - direction: 選單彈出的方向
     ///   - duration: 動畫時間
     ///   - curve: 動畫型式
     /// - Returns: Bool
-    func dismiss(duration: TimeInterval = 0.25, curve: UIView.AnimationCurve = .linear) -> Bool {
+    func dismiss(with direction: Constant.MenuPopupDirection = .right, duration: TimeInterval = 0.25, curve: UIView.AnimationCurve = .linear) -> Bool {
         
         guard let sideMenuController = parentViewController() as WWSideMenuViewController? else { return false }
 
-        sideMenuController.dismiss(duration: duration, curve: curve)
+        sideMenuController.dismiss(with: direction, duration: duration, curve: curve)
         return true
     }
 }

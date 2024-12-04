@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 60;
+	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,6 +19,8 @@
 		817568152CA2C33600B24577 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817568132CA2C33600B24577 /* Extension.swift */; };
 		81A6825D2CFFF947003B0801 /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 81A6825C2CFFF947003B0801 /* WWSideMenuViewController */; };
 		81A682632D00011B003B0801 /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 81A682622D00011B003B0801 /* WWSideMenuViewController */; };
+		81A682692D0003DC003B0801 /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 81A682682D0003DC003B0801 /* WWSideMenuViewController */; };
+		81A6826C2D00082E003B0801 /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 81A6826B2D00082E003B0801 /* WWSideMenuViewController */; };
 		81AABC862CFEA3360044A86A /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 81AABC852CFEA3360044A86A /* WWSideMenuViewController */; };
 		81AABC892CFEA3700044A86A /* WWPrint in Frameworks */ = {isa = PBXBuildFile; productRef = 81AABC882CFEA36F0044A86A /* WWPrint */; };
 /* End PBXBuildFile section */
@@ -44,7 +46,9 @@
 			files = (
 				813D11632CFF0A8500117857 /* WWSideMenuViewController in Frameworks */,
 				81A682632D00011B003B0801 /* WWSideMenuViewController in Frameworks */,
+				81A6826C2D00082E003B0801 /* WWSideMenuViewController in Frameworks */,
 				81AABC892CFEA3700044A86A /* WWPrint in Frameworks */,
+				81A682692D0003DC003B0801 /* WWSideMenuViewController in Frameworks */,
 				81AABC862CFEA3360044A86A /* WWSideMenuViewController in Frameworks */,
 				81A6825D2CFFF947003B0801 /* WWSideMenuViewController in Frameworks */,
 			);
@@ -156,6 +160,8 @@
 				813D11622CFF0A8500117857 /* WWSideMenuViewController */,
 				81A6825C2CFFF947003B0801 /* WWSideMenuViewController */,
 				81A682622D00011B003B0801 /* WWSideMenuViewController */,
+				81A682682D0003DC003B0801 /* WWSideMenuViewController */,
+				81A6826B2D00082E003B0801 /* WWSideMenuViewController */,
 			);
 			productName = Example;
 			productReference = 817567F82CA2C2B400B24577 /* Example.app */;
@@ -187,7 +193,7 @@
 			mainGroup = 817567EF2CA2C2B400B24577;
 			packageReferences = (
 				81AABC872CFEA36F0044A86A /* XCRemoteSwiftPackageReference "WWPrint" */,
-				81A682612D00011B003B0801 /* XCLocalSwiftPackageReference ".." */,
+				81A6826A2D00082E003B0801 /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */,
 			);
 			productRefGroup = 817567F92CA2C2B400B24577 /* Products */;
 			projectDirPath = "";
@@ -455,14 +461,15 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCLocalSwiftPackageReference section */
-		81A682612D00011B003B0801 /* XCLocalSwiftPackageReference ".." */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = ..;
-		};
-/* End XCLocalSwiftPackageReference section */
-
 /* Begin XCRemoteSwiftPackageReference section */
+		81A6826A2D00082E003B0801 /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/William-Weng/WWSideMenuViewController";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.3;
+			};
+		};
 		81AABC872CFEA36F0044A86A /* XCRemoteSwiftPackageReference "WWPrint" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/William-Weng/WWPrint";
@@ -484,6 +491,15 @@
 		};
 		81A682622D00011B003B0801 /* WWSideMenuViewController */ = {
 			isa = XCSwiftPackageProductDependency;
+			productName = WWSideMenuViewController;
+		};
+		81A682682D0003DC003B0801 /* WWSideMenuViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WWSideMenuViewController;
+		};
+		81A6826B2D00082E003B0801 /* WWSideMenuViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 81A6826A2D00082E003B0801 /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */;
 			productName = WWSideMenuViewController;
 		};
 		81AABC852CFEA3360044A86A /* WWSideMenuViewController */ = {

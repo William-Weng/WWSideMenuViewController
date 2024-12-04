@@ -50,18 +50,20 @@ extension WWSideMenuViewController {
     
     /// 顯示側邊選單
     /// - Parameters:
+    ///   - direction: 選單彈出的方向
     ///   - duration: 動畫時間
     ///   - curve: 動畫型式
-    func display(duration: TimeInterval = Constant.delayTime, curve: UIView.AnimationCurve = .easeInOut) {
-        menuAnimation(duration: duration, curve: curve, state: .display)
+    func display(with direction: Constant.MenuPopupDirection, duration: TimeInterval = Constant.delayTime, curve: UIView.AnimationCurve = .easeInOut) {
+        menuAnimation(with: direction, duration: duration, curve: curve, state: .display)
     }
     
     /// 隱藏側邊選單
     /// - Parameters:
+    ///   - direction: 選單彈出的方向
     ///   - duration: 動畫時間
     ///   - curve: 動畫型式
-    func dismiss(duration: TimeInterval = Constant.delayTime, curve: UIView.AnimationCurve = .easeInOut) {
-        menuAnimation(duration: duration, curve: curve, state: .dismiss)
+    func dismiss(with direction: Constant.MenuPopupDirection, duration: TimeInterval = Constant.delayTime, curve: UIView.AnimationCurve = .easeInOut) {
+        menuAnimation(with: direction, duration: duration, curve: curve, state: .dismiss)
     }
     
     /// 回到一開始的頁面 (第一頁)
@@ -132,13 +134,14 @@ private extension WWSideMenuViewController {
     
     /// 選單動畫處理
     /// - Parameters:
+    ///   - direction: 選單彈出的方向
     ///   - duration: 動畫時間
     ///   - curve: 動畫型式
     ///   - state: 選單狀態
-    func menuAnimation(duration: TimeInterval, curve: UIView.AnimationCurve, state: Constant.MenuState) {
+    func menuAnimation(with direction: Constant.MenuPopupDirection, duration: TimeInterval, curve: UIView.AnimationCurve, state: Constant.MenuState) {
         
         let position: Constant.MenuMovePosition
-        menuPosition = (display: .zero, dismiss: .init(x: -view.frame.width, y: 0))
+        menuPosition = menuPosition(with: direction)
         
         switch state {
         case .display: position = (from: menuPosition.dismiss, to: menuPosition.display)
@@ -158,6 +161,23 @@ private extension WWSideMenuViewController {
         }
         
         animator.startAnimation()
+    }
+    
+    /// 根據彈出方向來決定相對的位置
+    /// - Parameter type: Constant.MenuPopupDirection
+    /// - Returns: Constant.MenuPosition
+    func menuPosition(with direction: Constant.MenuPopupDirection) -> Constant.MenuPosition {
+        
+        let position: Constant.MenuPosition
+        
+        switch direction {
+        case .up: position = (display: .zero, dismiss: .init(x: 0, y: -view.frame.height))
+        case .down: position = (display: .zero, dismiss: .init(x: 0, y: view.frame.height))
+        case .left: position = (display: .zero, dismiss: .init(x: view.frame.width, y: 0))
+        case .right: position = (display: .zero, dismiss: .init(x: -view.frame.width, y: 0))
+        }
+        
+        return position
     }
     
     /// 設定側邊選單的位置
