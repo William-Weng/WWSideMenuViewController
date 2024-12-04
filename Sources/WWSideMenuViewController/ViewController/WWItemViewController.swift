@@ -8,12 +8,7 @@
 import UIKit
 
 // MARK: - 顯示畫面的ViewController
-open class WWItemViewController: UIViewController {
-    
-    override open func viewDidLoad() {
-        super.viewDidLoad()
-    }
-}
+open class WWItemViewController: UIViewController {}
 
 // MARK: - 公開的函式
 public extension WWItemViewController {

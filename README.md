@@ -25,12 +25,14 @@ dependencies: [
 |-|-|
 |display(duration:curve:)|顯示側邊選單|
 |dismiss(duration:curve:)|隱藏側邊選單|
+|backFirstItemViewController(duration:curve:)|回到一開始的頁面 (第一頁)|
 |changeItemViewController(_:duration:curve:)|切換頁面|
 
 ## WWSideMenuViewControllerDelegate
 |函式|說明|
 |-|-|
-|sideMenuState(_:state:)|側邊選單的狀態|
+|sideMenu(_:state:)|側邊選單的動畫狀態|
+|sideMenu(_:from:to:)|側邊選單的換頁順序|
 
 ## Example
 ```swift
@@ -38,7 +40,6 @@ import UIKit
 import WWPrint
 import WWSideMenuViewController
 
-// MARK: - ViewController
 final class SideMenuViewController: WWSideMenuViewController {
     
     override func viewDidLoad() {
@@ -49,41 +50,30 @@ final class SideMenuViewController: WWSideMenuViewController {
 
 extension SideMenuViewController: WWSideMenuViewControllerDelegate {
     
-    func sideMenuState(_ sideMenuController: WWSideMenuViewController, state: Constant.MenuState) {
+    func sideMenu(_ sideMenuController: WWSideMenuViewController, state: Constant.MenuState) {
         wwPrint(state)
+    }
+    
+    func sideMenu(_ sideMenuController: WWSideMenuViewController, from previousViewController: UIViewController?, to nextViewController: UIViewController) {
+        wwPrint("from: \(previousViewController) to: \(nextViewController)")
     }
 }
 ```
 ```swift
 import UIKit
-import WWPrint
 import WWSideMenuViewController
 
 class MenuViewController: WWMenuViewController {
     
-    lazy var pageViewController: UIViewController = {
-        self.storyboard!.instantiateViewController(withIdentifier: "Page")
-    }()
-    
-    lazy var tabViewController: UIViewController = {
-        self.storyboard!.instantiateViewController(withIdentifier: "Tab")
-    }()
+    lazy var tabViewController: UIViewController = { self.storyboard!.instantiateViewController(withIdentifier: "Tab") }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    @IBAction func dimissMenu(_ sender: UIButton) {
-        _ = dismiss()
-    }
-    
-    @IBAction func changePageViewController(_ sender: UIButton) {
-        _ = changeItemViewController(pageViewController)
-    }
-    
-    @IBAction func changeTabViewController(_ sender: UIButton) {
-        _ = changeItemViewController(tabViewController)
-    }
+    @IBAction func dimissMenu(_ sender: UIButton) { _ = dismiss() }
+    @IBAction func changePageViewController(_ sender: UIButton) { _ = backFirstItemViewController() }
+    @IBAction func changeTabViewController(_ sender: UIButton) { _ = changeItemViewController(tabViewController) }
 }
 ```
 ```swift
@@ -102,4 +92,3 @@ class Tab2ViewController: WWItemViewController {
     @IBAction func diplayMenu(_ sender: UIButton) { _ = display() }
 }
 ```
-

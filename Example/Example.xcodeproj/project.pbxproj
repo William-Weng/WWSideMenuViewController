@@ -3,13 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		813C4DC32CFD85A50085B459 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813C4DC22CFD85A50085B459 /* MenuViewController.swift */; };
 		813C4DC52CFD85E50085B459 /* DemoViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813C4DC42CFD85E50085B459 /* DemoViewControllers.swift */; };
-		813D11602CFF050900117857 /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 813D115F2CFF050900117857 /* WWSideMenuViewController */; };
+		813D11632CFF0A8500117857 /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 813D11622CFF0A8500117857 /* WWSideMenuViewController */; };
 		817567FC2CA2C2B400B24577 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817567FB2CA2C2B400B24577 /* AppDelegate.swift */; };
 		817568002CA2C2B400B24577 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817567FF2CA2C2B400B24577 /* SideMenuViewController.swift */; };
 		817568032CA2C2B400B24577 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 817568012CA2C2B400B24577 /* Main.storyboard */; };
@@ -40,7 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				813D11602CFF050900117857 /* WWSideMenuViewController in Frameworks */,
+				813D11632CFF0A8500117857 /* WWSideMenuViewController in Frameworks */,
 				81AABC892CFEA3700044A86A /* WWPrint in Frameworks */,
 				81AABC862CFEA3360044A86A /* WWSideMenuViewController in Frameworks */,
 			);
@@ -149,7 +149,7 @@
 			packageProductDependencies = (
 				81AABC852CFEA3360044A86A /* WWSideMenuViewController */,
 				81AABC882CFEA36F0044A86A /* WWPrint */,
-				813D115F2CFF050900117857 /* WWSideMenuViewController */,
+				813D11622CFF0A8500117857 /* WWSideMenuViewController */,
 			);
 			productName = Example;
 			productReference = 817567F82CA2C2B400B24577 /* Example.app */;
@@ -181,7 +181,7 @@
 			mainGroup = 817567EF2CA2C2B400B24577;
 			packageReferences = (
 				81AABC872CFEA36F0044A86A /* XCRemoteSwiftPackageReference "WWPrint" */,
-				813D115E2CFF050900117857 /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */,
+				813D11612CFF0A8500117857 /* XCLocalSwiftPackageReference ".." */,
 			);
 			productRefGroup = 817567F92CA2C2B400B24577 /* Products */;
 			projectDirPath = "";
@@ -449,15 +449,14 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		813D115E2CFF050900117857 /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/William-Weng/WWSideMenuViewController";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		813D11612CFF0A8500117857 /* XCLocalSwiftPackageReference ".." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ..;
 		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCRemoteSwiftPackageReference section */
 		81AABC872CFEA36F0044A86A /* XCRemoteSwiftPackageReference "WWPrint" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/William-Weng/WWPrint";
@@ -469,9 +468,8 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		813D115F2CFF050900117857 /* WWSideMenuViewController */ = {
+		813D11622CFF0A8500117857 /* WWSideMenuViewController */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 813D115E2CFF050900117857 /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */;
 			productName = WWSideMenuViewController;
 		};
 		81AABC852CFEA3360044A86A /* WWSideMenuViewController */ = {

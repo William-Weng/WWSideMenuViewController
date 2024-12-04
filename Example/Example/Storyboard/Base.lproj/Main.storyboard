@@ -158,7 +158,7 @@
             </objects>
             <point key="canvasLocation" x="3038" y="-46"/>
         </scene>
-        <!--Item-->
+        <!--Page1-->
         <scene sceneID="0ct-eG-cBv">
             <objects>
                 <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="HBC-U4-Gdq" customClass="Tab1ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
@@ -183,13 +183,13 @@
                             <constraint firstItem="bbY-2I-9jU" firstAttribute="centerX" secondItem="BiH-f0-Smc" secondAttribute="centerX" id="cZ9-TM-luV"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Xd0-Mw-rsF"/>
+                    <tabBarItem key="tabBarItem" title="Page1" image="square.and.arrow.up.fill" catalog="system" id="Xd0-Mw-rsF"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GzU-5G-rM0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="625" y="1509"/>
         </scene>
-        <!--Item-->
+        <!--Page2-->
         <scene sceneID="U6x-Hk-brJ">
             <objects>
                 <viewController id="3T4-i6-UBV" customClass="Tab2ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
@@ -216,7 +216,7 @@
                             <constraint firstItem="pws-Uo-GtT" firstAttribute="centerY" secondItem="k0R-Vv-fE2" secondAttribute="centerY" id="Z0B-Ou-cWd"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="H09-qp-l75"/>
+                    <tabBarItem key="tabBarItem" title="Page2" image="pencil.circle.fill" catalog="system" id="H09-qp-l75"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZtX-km-BBJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -263,6 +263,8 @@
     <resources>
         <image name="Desktop" width="428" height="926"/>
         <image name="menucard.fill" catalog="system" width="105" height="128"/>
+        <image name="pencil.circle.fill" catalog="system" width="128" height="123"/>
+        <image name="square.and.arrow.up.fill" catalog="system" width="115" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -29,6 +29,6 @@ private extension WWMenuViewControllerSegue {
             return
         }
         
-        sideMenuViewController._changeContainerView(at: sideMenuViewController.menuContainerView, from: nil, to: menuController)
+        sideMenuViewController.changeMenuViewController(menuController, completion: nil)
     }
 }

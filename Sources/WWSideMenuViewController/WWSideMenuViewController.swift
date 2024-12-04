@@ -9,12 +9,13 @@ import UIKit
 
 // MARK: - 側邊選單主體
 open class WWSideMenuViewController: UIViewController {
-        
-    public private(set) var itemContainerView: UIView = UIView()
-    public private(set) var menuContainerView: UIView = UIView()
-
+    
     public weak var delegate: WWSideMenuViewControllerDelegate?
     
+    var itemContainerView: UIView = UIView()
+    var menuContainerView: UIView = UIView()
+        
+    var firstItemViewController: UIViewController?
     var previousItemViewController: UIViewController?
     var menuViewController: UIViewController?
     
@@ -32,11 +33,11 @@ open class WWSideMenuViewController: UIViewController {
     
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        delegate?.sideMenuState(self, state: .dismiss)
+        delegate?.sideMenu(self, state: .dismiss)
     }
         
     override open func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        initViewControllers(for: segue)
+        recordViewControllers(for: segue)
     }
 
     deinit {
@@ -63,14 +64,35 @@ extension WWSideMenuViewController {
         menuAnimation(duration: duration, curve: curve, state: .dismiss)
     }
     
-    /// 切換頁面
+    /// 回到一開始的頁面 (第一頁)
+    /// - Parameter completion: 完成後的動作
+    func backFirstItemViewController(completion: ((WWSideMenuViewController) -> Void)?) {
+        
+        guard let firstItemViewController = firstItemViewController else { return }
+        changeItemViewController(firstItemViewController, completion: completion)
+    }
+    
+    /// 切換Item頁面
     /// - Parameters:
     ///   - itemViewController: UIViewController
     ///   - completion: 完成後的動作
     func changeItemViewController(_ itemViewController: UIViewController, completion: ((WWSideMenuViewController) -> Void)?) {
         
         _changeContainerView(at: itemContainerView, from: previousItemViewController, to: itemViewController)
+        delegate?.sideMenu(self, from: previousItemViewController, to: itemViewController)
         previousItemViewController = itemViewController
+        
+        completion?(self)
+    }
+    
+    /// 切換Menu頁面
+    /// - Parameters:
+    ///   - itemViewController: UIViewController
+    ///   - completion: 完成後的動作
+    func changeMenuViewController(_ menuViewController: UIViewController, completion: ((WWSideMenuViewController) -> Void)?) {
+        
+        _changeContainerView(at: menuContainerView, from: nil, to: menuViewController)
+        delegate?.sideMenu(self, from: nil, to: menuViewController)
         
         completion?(self)
     }
@@ -98,7 +120,7 @@ private extension WWSideMenuViewController {
             menuContainerView.topAnchor.constraint(equalTo: view.topAnchor),
             menuContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             menuContainerView.trailingAnchor.constraint(equalTo: view.leadingAnchor),
-            menuContainerView.widthAnchor.constraint(equalTo: itemContainerView.widthAnchor)
+            menuContainerView.widthAnchor.constraint(equalTo: view.widthAnchor)
         ])
     }
     
@@ -127,12 +149,12 @@ private extension WWSideMenuViewController {
         menuPositionSetting(position.from)
         
         let animator = UIViewPropertyAnimator(duration: duration, curve: curve) { [unowned self] in
-            delegate?.sideMenuState(self, state: .animation)
+            delegate?.sideMenu(self, state: .animation)
             menuPositionSetting(position.to)
         }
         
         animator.addCompletion { [unowned self] _ in
-            delegate?.sideMenuState(self, state: state)
+            delegate?.sideMenu(self, state: state)
         }
         
         animator.startAnimation()
@@ -144,9 +166,9 @@ private extension WWSideMenuViewController {
     }
     
     /// 記錄畫面跟選單的ViewController
-    func initViewControllers(for segue: UIStoryboardSegue) {
+    func recordViewControllers(for segue: UIStoryboardSegue) {
         
-        if segue.identifier == WWItemViewControllerSegue.identifier { previousItemViewController = segue.destination; return }
+        if segue.identifier == WWItemViewControllerSegue.identifier { firstItemViewController = segue.destination; return }
         if segue.identifier == WWMenuViewControllerSegue.identifier { menuViewController = segue.destination as? WWMenuViewController; return }
     }
 }

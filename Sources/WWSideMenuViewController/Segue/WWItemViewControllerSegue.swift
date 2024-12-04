@@ -23,11 +23,7 @@ private extension WWItemViewControllerSegue {
     
     /// 嵌入ItemController到ContainerView中
     func embedInItemController() {
-        
         guard let sideMenuViewController = source as? WWSideMenuViewController else { return }
-        
-        sideMenuViewController.changeItemViewController(destination) {
-            $0.previousItemViewController = self.destination
-        }
+        sideMenuViewController.changeItemViewController(destination, completion: nil)
     }
 }
