@@ -37,7 +37,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Desktop" translatesAutoresizingMaskIntoConstraints="NO" id="8MQ-Co-DuU">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ちいかわ" translatesAutoresizingMaskIntoConstraints="NO" id="8MQ-Co-DuU">
                                 <rect key="frame" x="0.0" y="0.0" width="286" height="896"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="wIJ-Ze-8Ep">
@@ -103,7 +103,7 @@
             </objects>
             <point key="canvasLocation" x="69.565217391304358" y="722.54464285714278"/>
         </scene>
-        <!--Page1 View Controller-->
+        <!--ちいかわ-->
         <scene sceneID="Eft-Jc-bfW">
             <objects>
                 <viewController id="rMj-ZB-vBg" customClass="Page1ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
@@ -111,20 +111,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kbJ-UQ-y2H">
-                                <rect key="frame" x="191" y="431" width="32" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ちいかわ_1" translatesAutoresizingMaskIntoConstraints="NO" id="YYF-G8-SuN">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="なんか小さくてかわいいやつ" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kbJ-UQ-y2H">
+                                <rect key="frame" x="8" y="207" width="398" height="34"/>
+                                <color key="backgroundColor" white="1" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="w7U-9A-7sv"/>
                         <color key="backgroundColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="kbJ-UQ-y2H" secondAttribute="trailing" constant="8" id="0XP-uV-9t2"/>
                             <constraint firstItem="kbJ-UQ-y2H" firstAttribute="centerX" secondItem="Vgc-Xf-MxF" secondAttribute="centerX" id="CSn-oo-PZi"/>
-                            <constraint firstItem="kbJ-UQ-y2H" firstAttribute="centerY" secondItem="Vgc-Xf-MxF" secondAttribute="centerY" id="be0-JT-r6L"/>
+                            <constraint firstItem="YYF-G8-SuN" firstAttribute="trailing" secondItem="w7U-9A-7sv" secondAttribute="trailing" id="Nqa-o9-bpe"/>
+                            <constraint firstItem="YYF-G8-SuN" firstAttribute="centerY" secondItem="Vgc-Xf-MxF" secondAttribute="centerY" id="UG8-E4-34j"/>
+                            <constraint firstItem="YYF-G8-SuN" firstAttribute="centerX" secondItem="Vgc-Xf-MxF" secondAttribute="centerX" id="UVY-Mb-z2r"/>
+                            <constraint firstItem="YYF-G8-SuN" firstAttribute="top" secondItem="Vgc-Xf-MxF" secondAttribute="top" id="ZOt-zr-RF4"/>
+                            <constraint firstItem="kbJ-UQ-y2H" firstAttribute="centerY" secondItem="Vgc-Xf-MxF" secondAttribute="centerY" multiplier="0.5" id="be0-JT-r6L"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="ebL-2c-T5a">
+                    <navigationItem key="navigationItem" title="ちいかわ" id="ebL-2c-T5a">
                         <barButtonItem key="leftBarButtonItem" title="Display" image="menucard.fill" catalog="system" id="VQe-nb-7un">
                             <color key="tintColor" systemColor="labelColor"/>
                             <connections>
@@ -140,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dQd-fW-G60" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2081.159420289855" y="-46.205357142857139"/>
+            <point key="canvasLocation" x="2079.7101449275365" y="-46.205357142857139"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="MeC-yJ-GZc">
@@ -149,14 +158,25 @@
                     <view key="view" contentMode="scaleToFill" id="ffg-sQ-NdY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ちいかわ_2" translatesAutoresizingMaskIntoConstraints="NO" id="C3m-Wn-ccu">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="iHs-xY-oCh"/>
                         <color key="backgroundColor" systemColor="systemOrangeColor"/>
+                        <constraints>
+                            <constraint firstItem="C3m-Wn-ccu" firstAttribute="centerX" secondItem="ffg-sQ-NdY" secondAttribute="centerX" id="Kd4-RV-Udp"/>
+                            <constraint firstItem="C3m-Wn-ccu" firstAttribute="centerY" secondItem="ffg-sQ-NdY" secondAttribute="centerY" id="bm3-1X-rcc"/>
+                            <constraint firstAttribute="trailing" secondItem="C3m-Wn-ccu" secondAttribute="trailing" id="eoF-tZ-zQX"/>
+                            <constraint firstItem="C3m-Wn-ccu" firstAttribute="top" secondItem="ffg-sQ-NdY" secondAttribute="top" id="qRI-RW-YwX"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ueW-ca-lox"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0XL-os-A2u" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3038" y="-46"/>
+            <point key="canvasLocation" x="3037.68115942029" y="-46.205357142857139"/>
         </scene>
         <!--Page1-->
         <scene sceneID="0ct-eG-cBv">
@@ -167,7 +187,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bbY-2I-9jU">
-                                <rect key="frame" x="163" y="420.5" width="88" height="55"/>
+                                <rect key="frame" x="163" y="196.5" width="88" height="55"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Menu"/>
@@ -175,19 +195,26 @@
                                     <action selector="diplayMenu:" destination="HBC-U4-Gdq" eventType="touchUpInside" id="ojg-OS-1jG"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ちいかわ_3" translatesAutoresizingMaskIntoConstraints="NO" id="ei7-vP-lja">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="J6f-67-hco"/>
                         <color key="backgroundColor" red="1" green="0.1857388616" blue="0.57339501380000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="bbY-2I-9jU" firstAttribute="centerY" secondItem="BiH-f0-Smc" secondAttribute="centerY" id="V9a-oE-Hl7"/>
+                            <constraint firstItem="ei7-vP-lja" firstAttribute="centerX" secondItem="BiH-f0-Smc" secondAttribute="centerX" id="A29-AN-j2M"/>
+                            <constraint firstAttribute="trailing" secondItem="ei7-vP-lja" secondAttribute="trailing" id="Foj-lv-qzx"/>
+                            <constraint firstItem="bbY-2I-9jU" firstAttribute="centerY" secondItem="BiH-f0-Smc" secondAttribute="centerY" multiplier="0.5" id="V9a-oE-Hl7"/>
                             <constraint firstItem="bbY-2I-9jU" firstAttribute="centerX" secondItem="BiH-f0-Smc" secondAttribute="centerX" id="cZ9-TM-luV"/>
+                            <constraint firstItem="ei7-vP-lja" firstAttribute="top" secondItem="BiH-f0-Smc" secondAttribute="top" id="u9q-gZ-zSK"/>
+                            <constraint firstItem="ei7-vP-lja" firstAttribute="centerY" secondItem="BiH-f0-Smc" secondAttribute="centerY" id="xZR-A2-Ocx"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Page1" image="square.and.arrow.up.fill" catalog="system" id="Xd0-Mw-rsF"/>
+                    <tabBarItem key="tabBarItem" title="Page1" image="ちいかわ_Icon_1" id="Xd0-Mw-rsF"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GzU-5G-rM0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="625" y="1509"/>
+            <point key="canvasLocation" x="624.63768115942037" y="1508.7053571428571"/>
         </scene>
         <!--Page2-->
         <scene sceneID="U6x-Hk-brJ">
@@ -198,7 +225,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pws-Uo-GtT">
-                                <rect key="frame" x="129.5" y="403.5" width="155" height="89"/>
+                                <rect key="frame" x="129.5" y="179.5" width="155" height="89"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="64"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Menu">
@@ -208,19 +235,26 @@
                                     <action selector="diplayMenu:" destination="3T4-i6-UBV" eventType="touchUpInside" id="lbG-qh-c3x"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ちいかわ_4" translatesAutoresizingMaskIntoConstraints="NO" id="svh-ey-pvR">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="jhQ-l9-IvZ"/>
                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                         <constraints>
+                            <constraint firstItem="svh-ey-pvR" firstAttribute="centerX" secondItem="k0R-Vv-fE2" secondAttribute="centerX" id="Asb-KA-Qxi"/>
+                            <constraint firstItem="svh-ey-pvR" firstAttribute="trailing" secondItem="jhQ-l9-IvZ" secondAttribute="trailing" id="F0B-qw-qdM"/>
+                            <constraint firstItem="svh-ey-pvR" firstAttribute="centerY" secondItem="k0R-Vv-fE2" secondAttribute="centerY" id="KlD-nm-KK5"/>
                             <constraint firstItem="pws-Uo-GtT" firstAttribute="centerX" secondItem="k0R-Vv-fE2" secondAttribute="centerX" id="VbK-b2-g86"/>
-                            <constraint firstItem="pws-Uo-GtT" firstAttribute="centerY" secondItem="k0R-Vv-fE2" secondAttribute="centerY" id="Z0B-Ou-cWd"/>
+                            <constraint firstItem="pws-Uo-GtT" firstAttribute="centerY" secondItem="k0R-Vv-fE2" secondAttribute="centerY" multiplier="0.5" id="Z0B-Ou-cWd"/>
+                            <constraint firstItem="svh-ey-pvR" firstAttribute="top" secondItem="k0R-Vv-fE2" secondAttribute="top" id="gTf-hm-yor"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Page2" image="pencil.circle.fill" catalog="system" id="H09-qp-l75"/>
+                    <tabBarItem key="tabBarItem" title="Page2" image="ちいかわ_Icon_2" id="H09-qp-l75"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZtX-km-BBJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1571" y="1510"/>
+            <point key="canvasLocation" x="1569.5652173913045" y="1509.375"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NHU-oH-qr8">
@@ -261,10 +295,14 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Desktop" width="428" height="926"/>
         <image name="menucard.fill" catalog="system" width="105" height="128"/>
-        <image name="pencil.circle.fill" catalog="system" width="128" height="123"/>
-        <image name="square.and.arrow.up.fill" catalog="system" width="115" height="128"/>
+        <image name="ちいかわ" width="428" height="926"/>
+        <image name="ちいかわ_1" width="80" height="80"/>
+        <image name="ちいかわ_2" width="203.66667175292969" height="173.33332824707031"/>
+        <image name="ちいかわ_3" width="213.33332824707031" height="184"/>
+        <image name="ちいかわ_4" width="516.66668701171875" height="213.66667175292969"/>
+        <image name="ちいかわ_Icon_1" width="42.666667938232422" height="42.666667938232422"/>
+        <image name="ちいかわ_Icon_2" width="42.666667938232422" height="42.666667938232422"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

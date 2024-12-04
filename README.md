@@ -67,8 +67,9 @@ class MenuViewController: WWMenuViewController {
     
     lazy var tabViewController: UIViewController = { self.storyboard!.instantiateViewController(withIdentifier: "Tab") }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        _ = dismiss()
     }
     
     @IBAction func dimissMenu(_ sender: UIButton) { _ = dismiss() }
