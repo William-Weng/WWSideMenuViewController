@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		64AD0B742D02DB240034DE78 /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 64AD0B732D02DB240034DE78 /* WWSideMenuViewController */; };
+		64AD0B772D02E3810034DE78 /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 64AD0B762D02E3810034DE78 /* WWSideMenuViewController */; };
 		813C4DC32CFD85A50085B459 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813C4DC22CFD85A50085B459 /* MenuViewController.swift */; };
 		813C4DC52CFD85E50085B459 /* DemoViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813C4DC42CFD85E50085B459 /* DemoViewControllers.swift */; };
 		813D11632CFF0A8500117857 /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 813D11622CFF0A8500117857 /* WWSideMenuViewController */; };
@@ -20,7 +22,6 @@
 		81A6825D2CFFF947003B0801 /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 81A6825C2CFFF947003B0801 /* WWSideMenuViewController */; };
 		81A682632D00011B003B0801 /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 81A682622D00011B003B0801 /* WWSideMenuViewController */; };
 		81A682692D0003DC003B0801 /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 81A682682D0003DC003B0801 /* WWSideMenuViewController */; };
-		81A6826C2D00082E003B0801 /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 81A6826B2D00082E003B0801 /* WWSideMenuViewController */; };
 		81AABC862CFEA3360044A86A /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 81AABC852CFEA3360044A86A /* WWSideMenuViewController */; };
 		81AABC892CFEA3700044A86A /* WWPrint in Frameworks */ = {isa = PBXBuildFile; productRef = 81AABC882CFEA36F0044A86A /* WWPrint */; };
 /* End PBXBuildFile section */
@@ -46,11 +47,12 @@
 			files = (
 				813D11632CFF0A8500117857 /* WWSideMenuViewController in Frameworks */,
 				81A682632D00011B003B0801 /* WWSideMenuViewController in Frameworks */,
-				81A6826C2D00082E003B0801 /* WWSideMenuViewController in Frameworks */,
+				64AD0B742D02DB240034DE78 /* WWSideMenuViewController in Frameworks */,
 				81AABC892CFEA3700044A86A /* WWPrint in Frameworks */,
 				81A682692D0003DC003B0801 /* WWSideMenuViewController in Frameworks */,
 				81AABC862CFEA3360044A86A /* WWSideMenuViewController in Frameworks */,
 				81A6825D2CFFF947003B0801 /* WWSideMenuViewController in Frameworks */,
+				64AD0B772D02E3810034DE78 /* WWSideMenuViewController in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,7 +163,8 @@
 				81A6825C2CFFF947003B0801 /* WWSideMenuViewController */,
 				81A682622D00011B003B0801 /* WWSideMenuViewController */,
 				81A682682D0003DC003B0801 /* WWSideMenuViewController */,
-				81A6826B2D00082E003B0801 /* WWSideMenuViewController */,
+				64AD0B732D02DB240034DE78 /* WWSideMenuViewController */,
+				64AD0B762D02E3810034DE78 /* WWSideMenuViewController */,
 			);
 			productName = Example;
 			productReference = 817567F82CA2C2B400B24577 /* Example.app */;
@@ -193,7 +196,7 @@
 			mainGroup = 817567EF2CA2C2B400B24577;
 			packageReferences = (
 				81AABC872CFEA36F0044A86A /* XCRemoteSwiftPackageReference "WWPrint" */,
-				81A6826A2D00082E003B0801 /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */,
+				64AD0B752D02E3810034DE78 /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */,
 			);
 			productRefGroup = 817567F92CA2C2B400B24577 /* Products */;
 			projectDirPath = "";
@@ -462,12 +465,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		81A6826A2D00082E003B0801 /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */ = {
+		64AD0B752D02E3810034DE78 /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/William-Weng/WWSideMenuViewController";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.3;
+				minimumVersion = 1.1.0;
 			};
 		};
 		81AABC872CFEA36F0044A86A /* XCRemoteSwiftPackageReference "WWPrint" */ = {
@@ -481,6 +484,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		64AD0B732D02DB240034DE78 /* WWSideMenuViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WWSideMenuViewController;
+		};
+		64AD0B762D02E3810034DE78 /* WWSideMenuViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 64AD0B752D02E3810034DE78 /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */;
+			productName = WWSideMenuViewController;
+		};
 		813D11622CFF0A8500117857 /* WWSideMenuViewController */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WWSideMenuViewController;
@@ -495,11 +507,6 @@
 		};
 		81A682682D0003DC003B0801 /* WWSideMenuViewController */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = WWSideMenuViewController;
-		};
-		81A6826B2D00082E003B0801 /* WWSideMenuViewController */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 81A6826A2D00082E003B0801 /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */;
 			productName = WWSideMenuViewController;
 		};
 		81AABC852CFEA3360044A86A /* WWSideMenuViewController */ = {

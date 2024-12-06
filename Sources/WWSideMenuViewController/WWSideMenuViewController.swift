@@ -10,8 +10,11 @@ import UIKit
 // MARK: - 側邊選單主體
 open class WWSideMenuViewController: UIViewController {
     
+    open override var prefersStatusBarHidden: Bool { return isStatusBarHidden }
+    
     public weak var delegate: WWSideMenuViewControllerDelegate?
     
+    var isStatusBarHidden = false
     var itemContainerView: UIView = UIView()
     var menuContainerView: UIView = UIView()
         
@@ -20,7 +23,7 @@ open class WWSideMenuViewController: UIViewController {
     var menuViewController: UIViewController?
     
     private var menuPosition: Constant.MenuPosition = (.zero, .zero)
-    
+        
     open override func viewDidLoad() {
         super.viewDidLoad()
         initSetting()
@@ -144,7 +147,7 @@ private extension WWSideMenuViewController {
         menuPosition = menuPosition(with: direction)
         
         switch state {
-        case .display: position = (from: menuPosition.dismiss, to: menuPosition.display)
+        case .display: position = (from: menuPosition.dismiss, to: menuPosition.display); statusBarHiddenSetting(true)
         case .dismiss: position = (from: menuPosition.display, to: menuPosition.dismiss)
         case .animation: position = (from: .zero, to: .zero)
         }
@@ -157,6 +160,7 @@ private extension WWSideMenuViewController {
         }
         
         animator.addCompletion { [unowned self] _ in
+            if (state == .dismiss) { statusBarHiddenSetting(false) }
             delegate?.sideMenu(self, state: state)
         }
         
@@ -187,8 +191,14 @@ private extension WWSideMenuViewController {
     
     /// 記錄畫面跟選單的ViewController
     func recordViewControllers(for segue: UIStoryboardSegue) {
-        
         if segue.identifier == WWItemViewControllerSegue.identifier { firstItemViewController = segue.destination; return }
         if segue.identifier == WWMenuViewControllerSegue.identifier { menuViewController = segue.destination as? WWMenuViewController; return }
+    }
+    
+    /// 設定StatusBar的顯示狀態
+    /// - Parameter isStatusBarHidden: Bool
+    func statusBarHiddenSetting(_ isStatusBarHidden: Bool) {
+        self.isStatusBarHidden = isStatusBarHidden
+        setNeedsStatusBarAppearanceUpdate()
     }
 }
