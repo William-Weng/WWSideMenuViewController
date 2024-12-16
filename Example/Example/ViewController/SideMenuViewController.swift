@@ -14,7 +14,7 @@ final class SideMenuViewController: WWSideMenuViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = self
+        initSetting(with: .front, delegate: self)
     }
 }
 

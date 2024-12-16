@@ -7,30 +7,25 @@
 
 import Foundation
 
-public class Constant {
-    
-    public static let delayTime: TimeInterval = 0.25                    // 動畫的daley時間
-}
-
 // MARK: - typealias
-extension Constant {
+extension WWSideMenuViewController.Constant {
     
     typealias MenuPosition = (display: CGPoint, dismiss: CGPoint)       // 側邊選單的位置 (顯示 / 隱藏)
     typealias MenuMovePosition = (from: CGPoint, to: CGPoint)           // 側邊選單的移動位置 (從 / 到)
 }
 
 // MARK: - enum
-extension Constant {
+public extension WWSideMenuViewController.Constant {
     
     // MARK: - 選單的狀態
-    public enum MenuState {
+    enum MenuState {
         case display        // 已顯示
         case animation      // 動畫執行中
         case dismiss        // 已隱藏
     }
     
     // MARK: - 選單Segue
-    public enum MenuSegue {
+    enum MenuSegue {
         
         case item
         case menu
@@ -46,11 +41,17 @@ extension Constant {
     }
     
     // MARK: - 選單彈出方向
-    public enum MenuPopupDirection {
+    enum MenuPopupDirection {
         case up
         case down
         case left
         case right
+    }
+    
+    // MARK: - 選單出現的位置
+    enum MenuDisplayPosition {
+        case front                      // 在ContainerView的上方 (一般型)
+        case back(_ distance: CGFloat)  // 在ContainerView的下方 (用推的)
     }
 }
 

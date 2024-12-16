@@ -11,7 +11,7 @@
 ## [Installation with Swift Package Manager](https://medium.com/彼得潘的-swift-ios-app-開發問題解答集/使用-spm-安裝第三方套件-xcode-11-新功能-2c4ffcf85b4b)
 ```bash
 dependencies: [
-    .package(url: "https://github.com/William-Weng/WWSideMenuViewController.git", .upToNextMajor(from: "1.0.0"))
+    .package(url: "https://github.com/William-Weng/WWSideMenuViewController.git", .upToNextMajor(from: "1.2.0"))
 ]
 ```
 
@@ -23,6 +23,7 @@ dependencies: [
 ## 可用函式
 |函式|說明|
 |-|-|
+|initSetting(with:delegate:)|初始化設定|
 |display(with:duration:curve:)|顯示側邊選單|
 |dismiss(with:duration:curve:)|隱藏側邊選單|
 |backFirstItemViewController(with:duration:curve:)|回到一開始的頁面 (第一頁)|
@@ -44,7 +45,7 @@ final class SideMenuViewController: WWSideMenuViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate = self
+        initSetting(with: .front, delegate: self)
     }
 }
 

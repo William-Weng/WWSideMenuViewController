@@ -90,10 +90,9 @@
                         <constraints>
                             <constraint firstItem="8MQ-Co-DuU" firstAttribute="trailing" secondItem="wIJ-Ze-8Ep" secondAttribute="trailing" id="08i-9S-40E"/>
                             <constraint firstItem="KuQ-Lp-Lnz" firstAttribute="trailing" secondItem="8MQ-Co-DuU" secondAttribute="trailing" constant="128" id="0ep-xG-MQi"/>
+                            <constraint firstItem="wIJ-Ze-8Ep" firstAttribute="width" secondItem="8MQ-Co-DuU" secondAttribute="width" id="Jmv-FV-DrV"/>
                             <constraint firstItem="wIJ-Ze-8Ep" firstAttribute="top" secondItem="KuQ-Lp-Lnz" secondAttribute="top" id="aVj-nF-dtH"/>
                             <constraint firstAttribute="bottom" secondItem="8MQ-Co-DuU" secondAttribute="bottom" id="lgT-4n-lYj"/>
-                            <constraint firstItem="wIJ-Ze-8Ep" firstAttribute="leading" secondItem="KuQ-Lp-Lnz" secondAttribute="leading" id="pLr-QN-Hcn"/>
-                            <constraint firstItem="8MQ-Co-DuU" firstAttribute="leading" secondItem="KuQ-Lp-Lnz" secondAttribute="leading" id="tye-Si-3lR"/>
                             <constraint firstItem="8MQ-Co-DuU" firstAttribute="leading" secondItem="KuQ-Lp-Lnz" secondAttribute="leading" id="vrh-Mn-o7y"/>
                             <constraint firstItem="8MQ-Co-DuU" firstAttribute="top" secondItem="xTa-nW-X8U" secondAttribute="top" id="wY6-p3-vCH"/>
                         </constraints>
@@ -307,7 +306,7 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

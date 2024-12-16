@@ -14,7 +14,7 @@ public protocol WWSideMenuViewControllerDelegate: AnyObject {
     /// - Parameters:
     ///   - sideMenuController: WWSideMenuViewController
     ///   - state: Constant.MenuState
-    func sideMenu(_ sideMenuController: WWSideMenuViewController, state: Constant.MenuState)
+    func sideMenu(_ sideMenuController: WWSideMenuViewController, state: WWSideMenuViewController.Constant.MenuState)
     
     /// 側邊選單的換頁順序
     /// - Parameters:
