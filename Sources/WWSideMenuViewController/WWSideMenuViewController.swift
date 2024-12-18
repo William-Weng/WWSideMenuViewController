@@ -11,9 +11,7 @@ import UIKit
 open class WWSideMenuViewController: UIViewController {
     
     open override var prefersStatusBarHidden: Bool { return isStatusBarHidden }
-    
-    public static let delayTime: TimeInterval = 0.25    // 動畫的daley時間
-    
+        
     weak var delegate: WWSideMenuViewControllerDelegate?
     
     var displayPosition: MenuDisplayPosition = .front
@@ -28,7 +26,7 @@ open class WWSideMenuViewController: UIViewController {
     
     private var menuPosition: MenuPosition = (.zero, .zero)
     private var visualEffectView = UIVisualEffectView()
-    private var visualEffectStyle: UIBlurEffect.Style = .systemUltraThinMaterialDark
+    private var visualEffectStyle: UIBlurEffect.Style?
     private var displayMenuAnimationInformation = MenuAnimationInformation(.right, 0, .easeInOut)
     private var menuSegueIdentifier: MenuSegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu")
     
@@ -66,7 +64,7 @@ public extension WWSideMenuViewController {
     ///   - visualEffectStyle: UIBlurEffect.Style
     ///   - menuSegueIdentifier: Segue的Id名稱
     ///   - delegate: WWSideMenuViewControllerDelegate?
-    func initSetting(with displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style = .systemUltraThinMaterialDark, menuSegueIdentifier: MenuSegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu"), delegate: WWSideMenuViewControllerDelegate? = nil) {
+    func initSetting(with displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style? = .systemUltraThinMaterialDark, menuSegueIdentifier: MenuSegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu"), delegate: WWSideMenuViewControllerDelegate? = nil) {
         
         self.delegate = delegate
         self.visualEffectStyle = visualEffectStyle
@@ -85,7 +83,7 @@ extension WWSideMenuViewController {
     ///   - direction: 選單彈出的方向
     ///   - duration: 動畫時間
     ///   - curve: 動畫型式
-    func display(with direction: MenuPopupDirection, duration: TimeInterval = delayTime, curve: UIView.AnimationCurve = .easeInOut) {
+    func display(with direction: MenuPopupDirection, duration: TimeInterval, curve: UIView.AnimationCurve) {
         displayMenuAnimationInformation = (direction, duration, curve)
         menuAnimation(with: direction, displayPosition: displayPosition, duration: duration, curve: curve, state: .display)
     }
@@ -95,7 +93,7 @@ extension WWSideMenuViewController {
     ///   - direction: 選單彈出的方向
     ///   - duration: 動畫時間
     ///   - curve: 動畫型式
-    func dismiss(with direction: MenuPopupDirection, duration: TimeInterval = delayTime, curve: UIView.AnimationCurve = .easeInOut) {
+    func dismiss(with direction: MenuPopupDirection, duration: TimeInterval, curve: UIView.AnimationCurve) {
         menuAnimation(with: direction, displayPosition: displayPosition, duration: duration, curve: curve, state: .dismiss)
     }
     
@@ -159,7 +157,7 @@ private extension WWSideMenuViewController {
                 menuContainerView.widthAnchor.constraint(equalTo: view.widthAnchor)
             ])
             
-        case .back(_):
+        case .back(_), .scale(_):
             
             menuContainerView.translatesAutoresizingMaskIntoConstraints = false
             menuContainerView._autolayout(on: view)            
@@ -183,6 +181,8 @@ private extension WWSideMenuViewController {
     func menuAnimation(with direction: MenuPopupDirection, displayPosition: MenuDisplayPosition, duration: TimeInterval, curve: UIView.AnimationCurve, state: MenuState) {
         
         let position: MenuMovePosition
+        let transform: CGAffineTransform
+        
         menuPosition = menuPosition(with: direction, displayPosition: displayPosition)
         
         switch state {
@@ -192,10 +192,15 @@ private extension WWSideMenuViewController {
         }
         
         menuPositionSetting(position.from, displayPosition: displayPosition)
-                
+        
         let animator = UIViewPropertyAnimator(duration: duration, curve: curve) { [unowned self] in
+            
             delegate?.sideMenu(self, state: .animation)
-            menuPositionSetting(position.to, displayPosition: displayPosition)
+            
+            switch displayPosition {
+            case .front, .back(_): menuPositionSetting(position.to, displayPosition: displayPosition)
+            case .scale(let distance, let scale): itemContainerView.transform = itemTransform(with: direction, state: state, distance: distance, scale: scale)
+            }
         }
         
         animator.addCompletion { [unowned self] _ in
@@ -205,17 +210,18 @@ private extension WWSideMenuViewController {
         
         animator.startAnimation()
     }
-    
+        
     /// 根據彈出方向來決定相對的位置
     /// - Parameters:
     ///   - direction: MenuPopupDirection
     ///   - displayPosition: MenuDisplayPosition
     /// - Returns: MenuPosition
     func menuPosition(with direction: MenuPopupDirection, displayPosition: MenuDisplayPosition) -> MenuPosition {
-                
+        
         switch displayPosition {
         case .front: return frontMenuPosition(with: direction, frame: view.frame)
         case .back(let distance): return backMenuPosition(with: direction, distance: distance)
+        case .scale(let distance, _): return backMenuPosition(with: direction, distance: distance)
         }
     }
     
@@ -264,7 +270,32 @@ private extension WWSideMenuViewController {
         switch displayPosition {
         case .front: menuContainerView.frame.origin = position
         case .back(_): itemContainerView.frame.origin = position
+        case .scale(_, _): break
         }
+    }
+    
+    /// 設定Item的縮放比例
+    /// - Parameters:
+    ///   - direction: 選單彈出的方向
+    ///   - state: 選單狀態
+    ///   - distance: 移動距離
+    ///   - scale: 縮放比例
+    /// - Returns: CGAffineTransform
+    func itemTransform(with direction: MenuPopupDirection, state: MenuState, distance: CGFloat, scale: CGFloat) -> CGAffineTransform {
+        
+        var transform: CGAffineTransform = .identity
+        
+        if (state == .display) {
+            
+            switch direction {
+            case .up: transform = CGAffineTransform(scaleX: scale, y: scale).translatedBy(x: 0, y: -distance)
+            case .down: transform = CGAffineTransform(scaleX: scale, y: scale).translatedBy(x: 0, y: distance)
+            case .left: transform = CGAffineTransform(scaleX: scale, y: scale).translatedBy(x: -distance, y: 0)
+            case .right: transform = CGAffineTransform(scaleX: scale, y: scale).translatedBy(x: distance, y: 0)
+            }
+        }
+        
+        return transform
     }
     
     /// 記錄畫面跟選單的ViewController
@@ -293,12 +324,12 @@ private extension WWSideMenuViewController {
     }
     
     /// 產生UIVisualEffectView
-    /// - Parameter style: UIBlurEffect.Style
+    /// - Parameter style: UIBlurEffect.Style?
     /// - Returns: UIVisualEffectView
-    func visualEffectViewMaker(with style: UIBlurEffect.Style) -> UIVisualEffectView {
+    func visualEffectViewMaker(with style: UIBlurEffect.Style?) -> UIVisualEffectView {
         
-        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: style))
-        effectView.frame = itemContainerView.frame
+        let effectView = UIVisualEffectView(frame: itemContainerView.frame)
+        if let style = style { effectView.effect = UIBlurEffect(style: style) }
         
         return effectView
     }
