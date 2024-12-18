@@ -15,7 +15,7 @@ dependencies: [
 ]
 ```
 
-## 相關設定
+## [相關設定](https://ezgif.com/video-to-webp)
 ![WWSideMenuViewController](./Setting.png)
 ![WWSideMenuViewController](./Setting_Item.webp)
 ![WWSideMenuViewController](./Setting_Menu.webp)
@@ -23,7 +23,7 @@ dependencies: [
 ## 可用函式
 |函式|說明|
 |-|-|
-|initSetting(with:delegate:)|初始化設定|
+|initSetting(with:visualEffectStyle:delegate:)|初始化設定|
 |display(with:duration:curve:)|顯示側邊選單|
 |dismiss(with:duration:curve:)|隱藏側邊選單|
 |backFirstItemViewController(with:duration:curve:)|回到一開始的頁面 (第一頁)|
