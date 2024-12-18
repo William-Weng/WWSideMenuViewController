@@ -10,8 +10,6 @@ import UIKit
 // MARK: - WWMenuViewControllerSegue
 open class WWMenuViewControllerSegue: UIStoryboardSegue {
     
-    static let identifier = WWSideMenuViewController.MenuSegue.menu.identifier()
-    
     override open func perform() {
         embedInMenuController()
     }

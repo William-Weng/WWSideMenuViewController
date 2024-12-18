@@ -9,9 +9,7 @@ import UIKit
 
 // MARK: - WWItemViewControllerSegue
 open class WWItemViewControllerSegue: UIStoryboardSegue {
-    
-    static let identifier = WWSideMenuViewController.MenuSegue.item.identifier()
-    
+        
     override open func perform() {
         embedInItemController()
     }
