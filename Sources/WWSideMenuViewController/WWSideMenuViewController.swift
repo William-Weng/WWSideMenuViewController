@@ -10,15 +10,13 @@ import UIKit
 // MARK: - 側邊選單主體
 open class WWSideMenuViewController: UIViewController {
     
-    public class Constant {
-        public static let delayTime: TimeInterval = 0.25    // 動畫的daley時間
-    }
-    
     open override var prefersStatusBarHidden: Bool { return isStatusBarHidden }
+    
+    public static let delayTime: TimeInterval = 0.25    // 動畫的daley時間
     
     weak var delegate: WWSideMenuViewControllerDelegate?
     
-    var displayPosition: Constant.MenuDisplayPosition = .front
+    var displayPosition: MenuDisplayPosition = .front
     
     var isStatusBarHidden = false
     var itemContainerView: UIView = UIView()
@@ -28,11 +26,10 @@ open class WWSideMenuViewController: UIViewController {
     var previousItemViewController: UIViewController?
     var menuViewController: UIViewController?
     
-    private var menuPosition: Constant.MenuPosition = (.zero, .zero)
-    
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-    }
+    private var menuPosition: MenuPosition = (.zero, .zero)
+    private var visualEffectView = UIVisualEffectView()
+    private var visualEffectStyle: UIBlurEffect.Style = .systemUltraThinMaterialDark
+    private var displayMenuAnimationInformation = MenuAnimationInformation(.right, 0, .easeInOut)
     
     override open func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -41,15 +38,26 @@ open class WWSideMenuViewController: UIViewController {
     
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        initVisualEffectView()
         delegate?.sideMenu(self, state: .dismiss)
     }
-        
+    
     override open func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         recordViewControllers(for: segue)
     }
-    
+        
     deinit {
         delegate = nil
+    }
+}
+
+// MARK: - @objc
+@objc extension WWSideMenuViewController {
+    
+    /// 點擊Item會退回選單
+    /// - Parameter tap: UITapGestureRecognizer
+    func handleVisualEffectView(_ tap: UITapGestureRecognizer) {
+        dismiss(with: displayMenuAnimationInformation.direction, duration: displayMenuAnimationInformation.duration, curve: displayMenuAnimationInformation.curve)
     }
 }
 
@@ -59,9 +67,13 @@ public extension WWSideMenuViewController {
     /// 初始化設定
     /// - Parameters:
     ///   - displayPosition: 選單顯示的位置 (正面 / 反面)
+    ///   - visualEffectStyle: UIBlurEffect.Style
     ///   - delegate: WWSideMenuViewControllerDelegate?
-    func initSetting(with displayPosition: Constant.MenuDisplayPosition = .front, delegate: WWSideMenuViewControllerDelegate? = nil) {
+    func initSetting(with displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style = .systemUltraThinMaterialDark, delegate: WWSideMenuViewControllerDelegate? = nil) {
+        
         self.delegate = delegate
+        self.visualEffectStyle = visualEffectStyle
+        
         itemContainerView._autolayout(on: view)
         menuContainerViewSetting(on: view, displayPosition: displayPosition)
     }
@@ -69,13 +81,14 @@ public extension WWSideMenuViewController {
 
 // MARK: - 公用函式
 extension WWSideMenuViewController {
-    
+        
     /// 顯示側邊選單
     /// - Parameters:
     ///   - direction: 選單彈出的方向
     ///   - duration: 動畫時間
     ///   - curve: 動畫型式
-    func display(with direction: Constant.MenuPopupDirection, duration: TimeInterval = Constant.delayTime, curve: UIView.AnimationCurve = .easeInOut) {
+    func display(with direction: MenuPopupDirection, duration: TimeInterval = delayTime, curve: UIView.AnimationCurve = .easeInOut) {
+        displayMenuAnimationInformation = (direction, duration, curve)
         menuAnimation(with: direction, displayPosition: displayPosition, duration: duration, curve: curve, state: .display)
     }
     
@@ -84,7 +97,7 @@ extension WWSideMenuViewController {
     ///   - direction: 選單彈出的方向
     ///   - duration: 動畫時間
     ///   - curve: 動畫型式
-    func dismiss(with direction: Constant.MenuPopupDirection, duration: TimeInterval = Constant.delayTime, curve: UIView.AnimationCurve = .easeInOut) {
+    func dismiss(with direction: MenuPopupDirection, duration: TimeInterval = delayTime, curve: UIView.AnimationCurve = .easeInOut) {
         menuAnimation(with: direction, displayPosition: displayPosition, duration: duration, curve: curve, state: .dismiss)
     }
     
@@ -128,8 +141,8 @@ private extension WWSideMenuViewController {
     /// 選單View的設定
     /// - Parameters:
     ///   - view: UIView
-    ///   - displayPosition: Constant.MenuDisplayPosition
-    func menuContainerViewSetting(on view: UIView, displayPosition: Constant.MenuDisplayPosition) {
+    ///   - displayPosition: MenuDisplayPosition
+    func menuContainerViewSetting(on view: UIView, displayPosition: MenuDisplayPosition) {
         
         self.displayPosition = displayPosition
         
@@ -169,19 +182,19 @@ private extension WWSideMenuViewController {
     ///   - duration: 動畫時間
     ///   - curve: 動畫型式
     ///   - state: 選單狀態
-    func menuAnimation(with direction: Constant.MenuPopupDirection, displayPosition: Constant.MenuDisplayPosition, duration: TimeInterval, curve: UIView.AnimationCurve, state: Constant.MenuState) {
+    func menuAnimation(with direction: MenuPopupDirection, displayPosition: MenuDisplayPosition, duration: TimeInterval, curve: UIView.AnimationCurve, state: MenuState) {
         
-        let position: Constant.MenuMovePosition
+        let position: MenuMovePosition
         menuPosition = menuPosition(with: direction, displayPosition: displayPosition)
         
         switch state {
-        case .display: position = (from: menuPosition.dismiss, to: menuPosition.display); statusBarHiddenSetting(true)
-        case .dismiss: position = (from: menuPosition.display, to: menuPosition.dismiss)
+        case .display: position = (from: menuPosition.dismiss, to: menuPosition.display); itemContainerView.addSubview(visualEffectView); statusBarHiddenSetting(true)
+        case .dismiss: position = (from: menuPosition.display, to: menuPosition.dismiss); visualEffectView.removeFromSuperview()
         case .animation: position = (from: .zero, to: .zero)
         }
         
         menuPositionSetting(position.from, displayPosition: displayPosition)
-        
+                
         let animator = UIViewPropertyAnimator(duration: duration, curve: curve) { [unowned self] in
             delegate?.sideMenu(self, state: .animation)
             menuPositionSetting(position.to, displayPosition: displayPosition)
@@ -197,10 +210,10 @@ private extension WWSideMenuViewController {
     
     /// 根據彈出方向來決定相對的位置
     /// - Parameters:
-    ///   - direction: Constant.MenuPopupDirection
-    ///   - displayPosition: Constant.MenuDisplayPosition
-    /// - Returns: Constant.MenuPosition
-    func menuPosition(with direction: Constant.MenuPopupDirection, displayPosition: Constant.MenuDisplayPosition) -> Constant.MenuPosition {
+    ///   - direction: MenuPopupDirection
+    ///   - displayPosition: MenuDisplayPosition
+    /// - Returns: MenuPosition
+    func menuPosition(with direction: MenuPopupDirection, displayPosition: MenuDisplayPosition) -> MenuPosition {
                 
         switch displayPosition {
         case .front: return frontMenuPosition(with: direction, frame: view.frame)
@@ -209,11 +222,11 @@ private extension WWSideMenuViewController {
     }
     
     /// 正面 / 一般型的選單位置
-    /// - Parameter direction: Constant.MenuPopupDirection
-    /// - Returns: Constant.MenuPosition
-    func frontMenuPosition(with direction: Constant.MenuPopupDirection, frame: CGRect) -> Constant.MenuPosition {
+    /// - Parameter direction: MenuPopupDirection
+    /// - Returns: MenuPosition
+    func frontMenuPosition(with direction: MenuPopupDirection, frame: CGRect) -> MenuPosition {
         
-        let position: Constant.MenuPosition
+        let position: MenuPosition
         
         switch direction {
         case .up: position = (display: .zero, dismiss: .init(x: 0, y: -frame.height))
@@ -226,13 +239,13 @@ private extension WWSideMenuViewController {
     }
     
     /// 底面 / 用推的ContainerView的位置
-    /// - Returns: Constant.MenuPosition
+    /// - Returns: MenuPosition
     /// - Parameters:
-    ///   - direction: Constant.MenuPopupDirection
+    ///   - direction: MenuPopupDirection
     ///   - distance: CGFloat
-    func backMenuPosition(with direction: Constant.MenuPopupDirection, distance: CGFloat) -> Constant.MenuPosition {
+    func backMenuPosition(with direction: MenuPopupDirection, distance: CGFloat) -> MenuPosition {
         
-        let position: Constant.MenuPosition
+        let position: MenuPosition
         
         switch direction {
         case .up: position = (display: .init(x: 0, y: distance), dismiss: .zero)
@@ -247,8 +260,8 @@ private extension WWSideMenuViewController {
     /// 設定側邊選單 / ContainetView的位置
     /// - Parameters:
     ///   - position: CGPoint
-    ///   - displayPosition: Constant.MenuDisplayPosition
-    func menuPositionSetting(_ position: CGPoint, displayPosition: Constant.MenuDisplayPosition) {
+    ///   - displayPosition: MenuDisplayPosition
+    func menuPositionSetting(_ position: CGPoint, displayPosition: MenuDisplayPosition) {
         
         switch displayPosition {
         case .front: menuContainerView.frame.origin = position
@@ -270,5 +283,25 @@ private extension WWSideMenuViewController {
             self.isStatusBarHidden = isStatusBarHidden
             setNeedsStatusBarAppearanceUpdate()
         }
+    }
+    
+    /// 初始化防被按的VisualEffectView
+    func initVisualEffectView() {
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleVisualEffectView))
+        
+        visualEffectView = visualEffectViewMaker(with: visualEffectStyle)
+        visualEffectView.addGestureRecognizer(tap)
+    }
+    
+    /// 產生UIVisualEffectView
+    /// - Parameter style: UIBlurEffect.Style
+    /// - Returns: UIVisualEffectView
+    func visualEffectViewMaker(with style: UIBlurEffect.Style) -> UIVisualEffectView {
+        
+        let effectView = UIVisualEffectView(effect: UIBlurEffect(style: style))
+        effectView.frame = itemContainerView.frame
+        
+        return effectView
     }
 }

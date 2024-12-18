@@ -21,12 +21,12 @@ final class SideMenuViewController: WWSideMenuViewController {
 // MARK: - WWSideMenuViewControllerDelegate
 extension SideMenuViewController: WWSideMenuViewControllerDelegate {
     
-    func sideMenu(_ sideMenuController: WWSideMenuViewController, state: Constant.MenuState) {
+    func sideMenu(_ sideMenuController: WWSideMenuViewController, state: MenuState) {
         wwPrint(state)
     }
     
     func sideMenu(_ sideMenuController: WWSideMenuViewController, from previousViewController: UIViewController?, to nextViewController: UIViewController) {
-        wwPrint("from: \(previousViewController) to: \(nextViewController)")
+        wwPrint("from: \(String(describing: previousViewController)) to: \(nextViewController)")
     }
 }
 

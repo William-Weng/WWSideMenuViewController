@@ -23,7 +23,8 @@
 		81A682692D0003DC003B0801 /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 81A682682D0003DC003B0801 /* WWSideMenuViewController */; };
 		81AABC862CFEA3360044A86A /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 81AABC852CFEA3360044A86A /* WWSideMenuViewController */; };
 		81D763D02D0FD4FB00ED4A99 /* WWPrint in Frameworks */ = {isa = PBXBuildFile; productRef = 81D763CF2D0FD4FB00ED4A99 /* WWPrint */; };
-		81D763D32D100E3500ED4A99 /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 81D763D22D100E3500ED4A99 /* WWSideMenuViewController */; };
+		81DC6E642D127F6200ACC852 /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 81DC6E632D127F6200ACC852 /* WWSideMenuViewController */; };
+		81DFAD232D12A50E00692E8D /* WWSideMenuViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 81DFAD222D12A50E00692E8D /* WWSideMenuViewController */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,11 +49,12 @@
 				813D11632CFF0A8500117857 /* WWSideMenuViewController in Frameworks */,
 				81A682632D00011B003B0801 /* WWSideMenuViewController in Frameworks */,
 				81D763D02D0FD4FB00ED4A99 /* WWPrint in Frameworks */,
+				81DFAD232D12A50E00692E8D /* WWSideMenuViewController in Frameworks */,
 				64AD0B742D02DB240034DE78 /* WWSideMenuViewController in Frameworks */,
 				81A682692D0003DC003B0801 /* WWSideMenuViewController in Frameworks */,
 				81AABC862CFEA3360044A86A /* WWSideMenuViewController in Frameworks */,
 				81A6825D2CFFF947003B0801 /* WWSideMenuViewController in Frameworks */,
-				81D763D32D100E3500ED4A99 /* WWSideMenuViewController in Frameworks */,
+				81DC6E642D127F6200ACC852 /* WWSideMenuViewController in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,7 +166,8 @@
 				81A682682D0003DC003B0801 /* WWSideMenuViewController */,
 				64AD0B732D02DB240034DE78 /* WWSideMenuViewController */,
 				81D763CF2D0FD4FB00ED4A99 /* WWPrint */,
-				81D763D22D100E3500ED4A99 /* WWSideMenuViewController */,
+				81DC6E632D127F6200ACC852 /* WWSideMenuViewController */,
+				81DFAD222D12A50E00692E8D /* WWSideMenuViewController */,
 			);
 			productName = Example;
 			productReference = 817567F82CA2C2B400B24577 /* Example.app */;
@@ -196,7 +199,7 @@
 			mainGroup = 817567EF2CA2C2B400B24577;
 			packageReferences = (
 				81D763CE2D0FD4FB00ED4A99 /* XCRemoteSwiftPackageReference "WWPrint" */,
-				81D763D12D100E3500ED4A99 /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */,
+				81DFAD212D12A50E00692E8D /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */,
 			);
 			productRefGroup = 817567F92CA2C2B400B24577 /* Products */;
 			projectDirPath = "";
@@ -473,12 +476,12 @@
 				minimumVersion = 1.3.1;
 			};
 		};
-		81D763D12D100E3500ED4A99 /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */ = {
+		81DFAD212D12A50E00692E8D /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/William-Weng/WWSideMenuViewController";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.1.1;
+				minimumVersion = 1.2.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -513,9 +516,13 @@
 			package = 81D763CE2D0FD4FB00ED4A99 /* XCRemoteSwiftPackageReference "WWPrint" */;
 			productName = WWPrint;
 		};
-		81D763D22D100E3500ED4A99 /* WWSideMenuViewController */ = {
+		81DC6E632D127F6200ACC852 /* WWSideMenuViewController */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 81D763D12D100E3500ED4A99 /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */;
+			productName = WWSideMenuViewController;
+		};
+		81DFAD222D12A50E00692E8D /* WWSideMenuViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 81DFAD212D12A50E00692E8D /* XCRemoteSwiftPackageReference "WWSideMenuViewController" */;
 			productName = WWSideMenuViewController;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -1,21 +1,22 @@
 //
-//  Constant+WWSideMenuViewController.swift
+//  Constant.swift
 //  WWSideMenuViewController
 //
 //  Created by William.Weng on 2024/12/2.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - typealias
-extension WWSideMenuViewController.Constant {
+extension WWSideMenuViewController {
     
-    typealias MenuPosition = (display: CGPoint, dismiss: CGPoint)       // 側邊選單的位置 (顯示 / 隱藏)
-    typealias MenuMovePosition = (from: CGPoint, to: CGPoint)           // 側邊選單的移動位置 (從 / 到)
+    typealias MenuPosition = (display: CGPoint, dismiss: CGPoint)                                                               // 側邊選單的位置 (顯示 / 隱藏)
+    typealias MenuMovePosition = (from: CGPoint, to: CGPoint)                                                                   // 側邊選單的移動位置 (從 / 到)
+    typealias MenuAnimationInformation = (direction: MenuPopupDirection, duration: TimeInterval, curve: UIView.AnimationCurve)  // 側邊選單動畫效果的相關資訊
 }
 
 // MARK: - enum
-public extension WWSideMenuViewController.Constant {
+public extension WWSideMenuViewController {
     
     // MARK: - 選單的狀態
     enum MenuState {

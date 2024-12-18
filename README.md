@@ -11,7 +11,7 @@
 ## [Installation with Swift Package Manager](https://medium.com/彼得潘的-swift-ios-app-開發問題解答集/使用-spm-安裝第三方套件-xcode-11-新功能-2c4ffcf85b4b)
 ```bash
 dependencies: [
-    .package(url: "https://github.com/William-Weng/WWSideMenuViewController.git", .upToNextMajor(from: "1.2.0"))
+    .package(url: "https://github.com/William-Weng/WWSideMenuViewController.git", .upToNextMajor(from: "1.2.1"))
 ]
 ```
 
@@ -51,12 +51,12 @@ final class SideMenuViewController: WWSideMenuViewController {
 
 extension SideMenuViewController: WWSideMenuViewControllerDelegate {
     
-    func sideMenu(_ sideMenuController: WWSideMenuViewController, state: Constant.MenuState) {
+    func sideMenu(_ sideMenuController: WWSideMenuViewController, state: MenuState) {
         wwPrint(state)
     }
     
     func sideMenu(_ sideMenuController: WWSideMenuViewController, from previousViewController: UIViewController?, to nextViewController: UIViewController) {
-        wwPrint("from: \(previousViewController) to: \(nextViewController)")
+        wwPrint("from: \(String(describing: previousViewController)) to: \(nextViewController)")
     }
 }
 ```
