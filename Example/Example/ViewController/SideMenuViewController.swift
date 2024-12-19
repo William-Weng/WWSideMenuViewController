@@ -12,12 +12,11 @@ import WWSideMenuViewController
 // MARK: - ViewController
 final class SideMenuViewController: WWSideMenuViewController {
     
-    lazy var pageViewController = { self.storyboard!.instantiateViewController(withIdentifier: "Page") }()
-    lazy var menuViewController = { self.storyboard!.instantiateViewController(withIdentifier: "Menu") }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         initSettingWithSegue(delegate: self)
+        // initSettingWithSegue(displayPosition: .back(256), delegate: self)
+        // initSettingWithSegue(displayPosition: .scale(365, 0.8), visualEffectStyle: nil, delegate: self)
     }
 }
 

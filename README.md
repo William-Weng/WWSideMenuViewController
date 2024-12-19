@@ -6,7 +6,9 @@
 - [Customizable side menu of the screen.](https://github.com/kukushi/SideMenu)
 - [可以自訂畫面的側邊選單。](https://github.com/William-Weng/Cocoapods)
 
-![WWSideMenuViewController](./Example.webp)
+![WWSideMenuViewController](./Example_Front.webp)
+![WWSideMenuViewController](./Example_Back.webp)
+![WWSideMenuViewController](./Example_Scale.webp)
 
 ## [Installation with Swift Package Manager](https://medium.com/彼得潘的-swift-ios-app-開發問題解答集/使用-spm-安裝第三方套件-xcode-11-新功能-2c4ffcf85b4b)
 ```bash
@@ -47,6 +49,8 @@ final class SideMenuViewController: WWSideMenuViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         initSettingWithSegue(delegate: self)
+        // initSettingWithSegue(displayPosition: .back(256), delegate: self)
+        // initSettingWithSegue(displayPosition: .scale(365, 0.8), visualEffectStyle: nil, delegate: self)
     }
 }
 
