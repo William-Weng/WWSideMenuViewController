@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/William-Weng/WWSideMenuViewController",
       "state" : {
-        "revision" : "a12de4f55d54e6b6032d91d6cc40b1654f708d1f",
-        "version" : "1.3.0"
+        "revision" : "aaa3e8df309026ed845b3889727dd7b7a5c21b29",
+        "version" : "1.4.0"
       }
     }
   ],
