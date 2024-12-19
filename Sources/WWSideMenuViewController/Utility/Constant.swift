@@ -10,7 +10,8 @@ import UIKit
 // MARK: - typealias
 extension WWSideMenuViewController {
     
-    public typealias MenuSegueIdentifier = (item: String, menu: String)                                                         // 側邊選單的Segue名稱
+    public typealias SegueIdentifier = (item: String, menu: String)                                                             // 側邊選單的Segue名稱
+    public typealias ViewController = (item: UIViewController, menu: UIViewController)                                          // 側邊選單的UIViewController
     
     typealias MenuPosition = (display: CGPoint, dismiss: CGPoint)                                                               // 側邊選單的位置 (顯示 / 隱藏)
     typealias MenuMovePosition = (from: CGPoint, to: CGPoint)                                                                   // 側邊選單的移動位置 (從 / 到)
@@ -26,13 +27,13 @@ public extension WWSideMenuViewController {
         case animation      // 動畫執行中
         case dismiss        // 已隱藏
     }
-        
-    // MARK: - 選單彈出方向
+    
+    // MARK: - 選單彈出的方向
     enum MenuPopupDirection {
-        case up
-        case down
-        case left
-        case right
+        case up     // 在上方
+        case down   // 在下方
+        case left   // 在左方
+        case right  // 在右方
     }
     
     // MARK: - 選單出現的位置

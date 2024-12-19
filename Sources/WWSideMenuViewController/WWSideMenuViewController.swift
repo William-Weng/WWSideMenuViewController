@@ -28,7 +28,7 @@ open class WWSideMenuViewController: UIViewController {
     private var visualEffectView = UIVisualEffectView()
     private var visualEffectStyle: UIBlurEffect.Style?
     private var displayMenuAnimationInformation = MenuAnimationInformation(.right, 0, .easeInOut)
-    private var menuSegueIdentifier: MenuSegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu")
+    private var segueIdentifier: SegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu")
     
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -58,26 +58,53 @@ open class WWSideMenuViewController: UIViewController {
 // MARK: - 公開函式
 public extension WWSideMenuViewController {
     
-    /// 初始化設定
+    /// 初始化設定 (SegueIdentifier)
+    /// - Parameters:
+    ///   - segueIdentifier: Segue的Id名稱
+    ///   - displayPosition: 選單顯示的位置 (正面 / 反面)
+    ///   - visualEffectStyle: UIBlurEffect.Style
+    ///   - delegate: WWSideMenuViewControllerDelegate?
+    func initSettingWithSegue(_ segueIdentifier: SegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu"), displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style? = .systemUltraThinMaterialDark, delegate: WWSideMenuViewControllerDelegate? = nil) {
+        
+        initSetting(with: displayPosition, visualEffectStyle: visualEffectStyle, delegate: delegate)
+        
+        self.segueIdentifier = segueIdentifier
+        performSegueAction()
+    }
+    
+    /// 初始化設定 (UIViewController)
+    /// - Parameters:
+    ///   - viewController: ViewController
+    ///   - displayPosition: 選單顯示的位置 (正面 / 反面)
+    ///   - visualEffectStyle: UIBlurEffect.Style
+    ///   - delegate: WWSideMenuViewControllerDelegate?
+    func initSettingWithViewController(_ viewController: ViewController, displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style? = .systemUltraThinMaterialDark, delegate: WWSideMenuViewControllerDelegate? = nil) {
+        
+        initSetting(with: displayPosition, visualEffectStyle: visualEffectStyle, delegate: delegate)
+        firstItemViewController = viewController.item
+        
+        changeItemViewController(viewController.item, completion: nil)
+        changeMenuViewController(viewController.menu, completion: nil)
+    }
+}
+
+// MARK: - 公用函式
+extension WWSideMenuViewController {
+    
+    /// 初始化基本設定
     /// - Parameters:
     ///   - displayPosition: 選單顯示的位置 (正面 / 反面)
     ///   - visualEffectStyle: UIBlurEffect.Style
-    ///   - menuSegueIdentifier: Segue的Id名稱
     ///   - delegate: WWSideMenuViewControllerDelegate?
-    func initSetting(with displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style? = .systemUltraThinMaterialDark, menuSegueIdentifier: MenuSegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu"), delegate: WWSideMenuViewControllerDelegate? = nil) {
+    func initSetting(with displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style?, delegate: WWSideMenuViewControllerDelegate?) {
         
         self.delegate = delegate
         self.visualEffectStyle = visualEffectStyle
         
         itemContainerView._autolayout(on: view)
         menuContainerViewSetting(on: view, displayPosition: displayPosition)
-        performSegueAction()
     }
-}
-
-// MARK: - 公用函式
-extension WWSideMenuViewController {
-        
+    
     /// 顯示側邊選單
     /// - Parameters:
     ///   - direction: 選單彈出的方向
@@ -120,7 +147,7 @@ extension WWSideMenuViewController {
     
     /// 切換Menu頁面
     /// - Parameters:
-    ///   - itemViewController: UIViewController
+    ///   - menuViewController: UIViewController
     ///   - completion: 完成後的動作
     func changeMenuViewController(_ menuViewController: UIViewController, completion: ((WWSideMenuViewController) -> Void)?) {
         
@@ -167,8 +194,8 @@ private extension WWSideMenuViewController {
     
     /// 執行Segue
     func performSegueAction() {
-        performSegue(withIdentifier: menuSegueIdentifier.item, sender: nil)
-        performSegue(withIdentifier: menuSegueIdentifier.menu, sender: nil)
+        performSegue(withIdentifier: segueIdentifier.item, sender: nil)
+        performSegue(withIdentifier: segueIdentifier.menu, sender: nil)
     }
     
     /// 選單動畫處理
@@ -300,8 +327,8 @@ private extension WWSideMenuViewController {
     
     /// 記錄畫面跟選單的ViewController
     func recordViewControllers(for segue: UIStoryboardSegue) {
-        if segue.identifier == menuSegueIdentifier.item { firstItemViewController = segue.destination; return }
-        if segue.identifier == menuSegueIdentifier.menu { menuViewController = segue.destination as? WWMenuViewController; return }
+        if segue.identifier == segueIdentifier.item { firstItemViewController = segue.destination; return }
+        if segue.identifier == segueIdentifier.menu { menuViewController = segue.destination as? WWMenuViewController; return }
     }
     
     /// 設定StatusBar的顯示狀態 (沒瀏海的會有問題)
