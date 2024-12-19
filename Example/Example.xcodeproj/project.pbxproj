@@ -479,7 +479,7 @@
 			repositoryURL = "https://github.com/William-Weng/WWSideMenuViewController";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.4.0;
+				minimumVersion = 1.4.1;
 			};
 		};
 		81D763CE2D0FD4FB00ED4A99 /* XCRemoteSwiftPackageReference "WWPrint" */ = {
