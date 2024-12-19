@@ -19,7 +19,7 @@ public extension WWItemViewController {
     ///   - duration: 動畫時間
     ///   - curve: 動畫型式
     /// - Returns: Bool
-    func display(with direction: WWSideMenuViewController.MenuPopupDirection = .right, duration: TimeInterval = 0.25, curve: UIView.AnimationCurve = .linear) -> Bool {
+    func displayMenu(with direction: WWSideMenuViewController.MenuPopupDirection = .right, duration: TimeInterval = 0.25, curve: UIView.AnimationCurve = .linear) -> Bool {
         
         guard let sideMenuController = parentViewController() as WWSideMenuViewController? else { return false }
         
@@ -33,7 +33,7 @@ public extension WWItemViewController {
     ///   - duration: 動畫時間
     ///   - curve: 動畫型式
     /// - Returns: Bool
-    func dismiss(with direction: WWSideMenuViewController.MenuPopupDirection = .right, duration: TimeInterval = 0.25, curve: UIView.AnimationCurve = .linear) -> Bool {
+    func dismissMenu(with direction: WWSideMenuViewController.MenuPopupDirection = .right, duration: TimeInterval = 0.25, curve: UIView.AnimationCurve = .linear) -> Bool {
         
         guard let sideMenuController = parentViewController() as WWSideMenuViewController? else { return false }
 

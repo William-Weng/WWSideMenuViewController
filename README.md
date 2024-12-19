@@ -13,7 +13,7 @@
 ## [Installation with Swift Package Manager](https://medium.com/彼得潘的-swift-ios-app-開發問題解答集/使用-spm-安裝第三方套件-xcode-11-新功能-2c4ffcf85b4b)
 ```bash
 dependencies: [
-    .package(url: "https://github.com/William-Weng/WWSideMenuViewController.git", .upToNextMajor(from: "1.4.0"))
+    .package(url: "https://github.com/William-Weng/WWSideMenuViewController.git", .upToNextMajor(from: "1.4.2"))
 ]
 ```
 
@@ -27,8 +27,8 @@ dependencies: [
 |-|-|
 |initSettingWithSegue(_:displayPosition:visualEffectStyle:delegate:)|初始化設定 (使用Segue)|
 |initSettingWithViewController(_:displayPosition:visualEffectStyle:delegate:)|初始化設定 (使用UIViewController)|
-|display(with:duration:curve:)|顯示側邊選單|
-|dismiss(with:duration:curve:)|隱藏側邊選單|
+|displayMenu(with:duration:curve:)|顯示側邊選單|
+|dismissMenu(with:duration:curve:)|隱藏側邊選單|
 |backFirstItemViewController(with:duration:curve:)|回到一開始的頁面 (第一頁)|
 |changeItemViewController(_:with:duration:curve:)|切換頁面|
 
@@ -75,10 +75,10 @@ class MenuViewController: WWMenuViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        _ = dismiss()
+        _ = dismissMenu()
     }
     
-    @IBAction func dimissMenu(_ sender: UIButton) { _ = dismiss() }
+    @IBAction func dimissMenu(_ sender: UIButton) { _ = dismissMenu() }
     @IBAction func changePageViewController(_ sender: UIButton) { _ = backFirstItemViewController() }
     @IBAction func changeTabViewController(_ sender: UIButton) { _ = changeItemViewController(tabViewController) }
 }
@@ -88,14 +88,14 @@ import UIKit
 import WWSideMenuViewController
 
 class Page1ViewController: WWItemViewController {
-    @IBAction func diplayMenu(_ sender: UIBarButtonItem) { _ = display() }
+    @IBAction func diplayMenu(_ sender: UIBarButtonItem) { _ = displayMenu() }
 }
 
 class Tab1ViewController: WWItemViewController {
-    @IBAction func diplayMenu(_ sender: UIButton) { _ = display() }
+    @IBAction func diplayMenu(_ sender: UIButton) { _ = displayMenu() }
 }
 
 class Tab2ViewController: WWItemViewController {
-    @IBAction func diplayMenu(_ sender: UIButton) { _ = display() }
+    @IBAction func diplayMenu(_ sender: UIButton) { _ = displayMenu() }
 }
 ```

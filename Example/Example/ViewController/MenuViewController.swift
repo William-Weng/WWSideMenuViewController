@@ -14,10 +14,10 @@ class MenuViewController: WWMenuViewController {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
-        _ = dismiss()
+        _ = dismissMenu()
     }
     
-    @IBAction func dimissMenu(_ sender: UIButton) { _ = dismiss() }
+    @IBAction func dimissMenu(_ sender: UIButton) { _ = dismissMenu() }
     @IBAction func changePageViewController(_ sender: UIButton) { _ = backFirstItemViewController() }
     @IBAction func changeTabViewController(_ sender: UIButton) { _ = changeItemViewController(tabViewController) }
 }

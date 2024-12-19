@@ -9,14 +9,14 @@ import UIKit
 import WWSideMenuViewController
 
 class Page1ViewController: WWItemViewController {
-    @IBAction func diplayMenu(_ sender: UIBarButtonItem) { _ = display() }
+    @IBAction func diplayMenu(_ sender: UIBarButtonItem) { _ = displayMenu() }
 }
 
 class Tab1ViewController: WWItemViewController {
-    @IBAction func diplayMenu(_ sender: UIButton) { _ = display() }
+    @IBAction func diplayMenu(_ sender: UIButton) { _ = displayMenu() }
 }
 
 class Tab2ViewController: WWItemViewController {
-    @IBAction func diplayMenu(_ sender: UIButton) { _ = display() }
+    @IBAction func diplayMenu(_ sender: UIButton) { _ = displayMenu() }
 }
 
