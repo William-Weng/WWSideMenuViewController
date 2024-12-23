@@ -38,9 +38,9 @@ public extension WWSideMenuViewController {
     
     // MARK: - 選單出現的位置
     enum MenuDisplayPosition {
-        case front                                          // 在ContainerView的上方 (一般型)
-        case back(_ distance: CGFloat)                      // 在ContainerView的下方 (用推的)
-        case scale(_ distance: CGFloat, _ scale: CGFloat)   // 在ContainerView的下方 (縮放)
+        case front                                                                  // 在ContainerView的上方 (一般型)
+        case back(_ distance: CGFloat)                                              // 在ContainerView的下方 (用推的)
+        case scale(_ distance: CGFloat, _ scale: CGFloat, _ cornerRadius: CGFloat)  // 在ContainerView的下方 (縮放)
     }
 }
 

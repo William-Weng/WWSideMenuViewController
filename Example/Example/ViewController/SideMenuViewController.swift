@@ -16,7 +16,7 @@ final class SideMenuViewController: WWSideMenuViewController {
         super.viewDidLoad()
         initSettingWithSegue(delegate: self)
         // initSettingWithSegue(displayPosition: .back(256), delegate: self)
-        // initSettingWithSegue(displayPosition: .scale(365, 0.8), visualEffectStyle: nil, delegate: self)
+        // initSettingWithSegue(displayPosition: .scale(365, 0.8, 32.0), visualEffectStyle: nil, delegate: self)
     }
 }
 

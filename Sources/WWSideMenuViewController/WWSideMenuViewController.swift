@@ -63,11 +63,10 @@ public extension WWSideMenuViewController {
     ///   - segueIdentifier: Segue的Id名稱
     ///   - displayPosition: 選單顯示的位置 (正面 / 反面)
     ///   - visualEffectStyle: UIBlurEffect.Style
-    ///   - cornerRadius: itemContainerView的圓角
     ///   - delegate: WWSideMenuViewControllerDelegate?
-    func initSettingWithSegue(_ segueIdentifier: SegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu"), displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style? = .systemUltraThinMaterialDark, cornerRadius: CGFloat = 32.0, delegate: WWSideMenuViewControllerDelegate? = nil) {
+    func initSettingWithSegue(_ segueIdentifier: SegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu"), displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style? = .systemUltraThinMaterialDark, delegate: WWSideMenuViewControllerDelegate? = nil) {
         
-        initSetting(with: displayPosition, visualEffectStyle: visualEffectStyle, cornerRadius: cornerRadius, delegate: delegate)
+        initSetting(with: displayPosition, visualEffectStyle: visualEffectStyle, delegate: delegate)
         
         self.segueIdentifier = segueIdentifier
         performSegueAction()
@@ -78,11 +77,10 @@ public extension WWSideMenuViewController {
     ///   - viewController: ViewController
     ///   - displayPosition: 選單顯示的位置 (正面 / 反面)
     ///   - visualEffectStyle: UIBlurEffect.Style
-    ///   - cornerRadius: itemContainerView的圓角
     ///   - delegate: WWSideMenuViewControllerDelegate?
-    func initSettingWithViewController(_ viewController: ViewController, displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style? = .systemUltraThinMaterialDark, cornerRadius: CGFloat = 32.0, delegate: WWSideMenuViewControllerDelegate? = nil) {
+    func initSettingWithViewController(_ viewController: ViewController, displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style? = .systemUltraThinMaterialDark, delegate: WWSideMenuViewControllerDelegate? = nil) {
         
-        initSetting(with: displayPosition, visualEffectStyle: visualEffectStyle, cornerRadius: cornerRadius, delegate: delegate)
+        initSetting(with: displayPosition, visualEffectStyle: visualEffectStyle, delegate: delegate)
         firstItemViewController = viewController.item
         
         changeItemViewController(viewController.item, completion: nil)
@@ -97,16 +95,20 @@ extension WWSideMenuViewController {
     /// - Parameters:
     ///   - displayPosition: 選單顯示的位置 (正面 / 反面)
     ///   - visualEffectStyle: UIBlurEffect.Style
-    ///   - cornerRadius: itemContainerView的圓角
     ///   - delegate: WWSideMenuViewControllerDelegate?
-    func initSetting(with displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style?, cornerRadius: CGFloat, delegate: WWSideMenuViewControllerDelegate?) {
+    func initSetting(with displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style?, delegate: WWSideMenuViewControllerDelegate?) {
         
         self.delegate = delegate
         self.visualEffectStyle = visualEffectStyle
         
         itemContainerView._autolayout(on: view)
-        itemContainerView.clipsToBounds = false
-        itemContainerView.layer.cornerRadius = cornerRadius
+        
+        switch displayPosition {
+        case .front, .back(let _): break
+        case .scale(_, _, let cornerRadius):
+            itemContainerView.clipsToBounds = false
+            itemContainerView.layer.cornerRadius = cornerRadius
+        }
         
         menuContainerViewSetting(on: view, displayPosition: displayPosition)
     }
@@ -232,7 +234,7 @@ private extension WWSideMenuViewController {
             
             switch displayPosition {
             case .front, .back(_): menuPositionSetting(position.to, displayPosition: displayPosition)
-            case .scale(let distance, let scale): itemContainerView.transform = itemTransform(with: direction, state: state, distance: distance, scale: scale)
+            case .scale(let distance, let scale, _): itemContainerView.transform = itemTransform(with: direction, state: state, distance: distance, scale: scale)
             }
         }
         
@@ -254,7 +256,7 @@ private extension WWSideMenuViewController {
         switch displayPosition {
         case .front: return frontMenuPosition(with: direction, frame: view.frame)
         case .back(let distance): return backMenuPosition(with: direction, distance: distance)
-        case .scale(let distance, _): return backMenuPosition(with: direction, distance: distance)
+        case .scale(let distance, _, _): return backMenuPosition(with: direction, distance: distance)
         }
     }
     
@@ -303,7 +305,7 @@ private extension WWSideMenuViewController {
         switch displayPosition {
         case .front: menuContainerView.frame.origin = position
         case .back(_): itemContainerView.frame.origin = position
-        case .scale(_, _): break
+        case .scale(_, _, _): break
         }
     }
     
