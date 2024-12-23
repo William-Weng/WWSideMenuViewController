@@ -63,10 +63,11 @@ public extension WWSideMenuViewController {
     ///   - segueIdentifier: Segue的Id名稱
     ///   - displayPosition: 選單顯示的位置 (正面 / 反面)
     ///   - visualEffectStyle: UIBlurEffect.Style
+    ///   - cornerRadius: itemContainerView的圓角
     ///   - delegate: WWSideMenuViewControllerDelegate?
-    func initSettingWithSegue(_ segueIdentifier: SegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu"), displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style? = .systemUltraThinMaterialDark, delegate: WWSideMenuViewControllerDelegate? = nil) {
+    func initSettingWithSegue(_ segueIdentifier: SegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu"), displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style? = .systemUltraThinMaterialDark, cornerRadius: CGFloat = 32.0, delegate: WWSideMenuViewControllerDelegate? = nil) {
         
-        initSetting(with: displayPosition, visualEffectStyle: visualEffectStyle, delegate: delegate)
+        initSetting(with: displayPosition, visualEffectStyle: visualEffectStyle, cornerRadius: cornerRadius, delegate: delegate)
         
         self.segueIdentifier = segueIdentifier
         performSegueAction()
@@ -77,10 +78,11 @@ public extension WWSideMenuViewController {
     ///   - viewController: ViewController
     ///   - displayPosition: 選單顯示的位置 (正面 / 反面)
     ///   - visualEffectStyle: UIBlurEffect.Style
+    ///   - cornerRadius: itemContainerView的圓角
     ///   - delegate: WWSideMenuViewControllerDelegate?
-    func initSettingWithViewController(_ viewController: ViewController, displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style? = .systemUltraThinMaterialDark, delegate: WWSideMenuViewControllerDelegate? = nil) {
+    func initSettingWithViewController(_ viewController: ViewController, displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style? = .systemUltraThinMaterialDark, cornerRadius: CGFloat = 32.0, delegate: WWSideMenuViewControllerDelegate? = nil) {
         
-        initSetting(with: displayPosition, visualEffectStyle: visualEffectStyle, delegate: delegate)
+        initSetting(with: displayPosition, visualEffectStyle: visualEffectStyle, cornerRadius: cornerRadius, delegate: delegate)
         firstItemViewController = viewController.item
         
         changeItemViewController(viewController.item, completion: nil)
@@ -95,13 +97,17 @@ extension WWSideMenuViewController {
     /// - Parameters:
     ///   - displayPosition: 選單顯示的位置 (正面 / 反面)
     ///   - visualEffectStyle: UIBlurEffect.Style
+    ///   - cornerRadius: itemContainerView的圓角
     ///   - delegate: WWSideMenuViewControllerDelegate?
-    func initSetting(with displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style?, delegate: WWSideMenuViewControllerDelegate?) {
+    func initSetting(with displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style?, cornerRadius: CGFloat, delegate: WWSideMenuViewControllerDelegate?) {
         
         self.delegate = delegate
         self.visualEffectStyle = visualEffectStyle
         
         itemContainerView._autolayout(on: view)
+        itemContainerView.clipsToBounds = false
+        itemContainerView.layer.cornerRadius = cornerRadius
+        
         menuContainerViewSetting(on: view, displayPosition: displayPosition)
     }
     
@@ -331,7 +337,7 @@ private extension WWSideMenuViewController {
         if segue.identifier == segueIdentifier.menu { menuViewController = segue.destination as? WWMenuViewController; return }
     }
     
-    /// 設定StatusBar的顯示狀態 (沒瀏海的會有問題)
+    /// 設定StatusBar的顯示狀態 + 圓角設定 (沒瀏海的會有問題)
     /// - Parameter isStatusBarHidden: Bool
     func statusBarHiddenSetting(_ isStatusBarHidden: Bool) {
         
@@ -339,6 +345,8 @@ private extension WWSideMenuViewController {
             self.isStatusBarHidden = isStatusBarHidden
             setNeedsStatusBarAppearanceUpdate()
         }
+        
+        itemContainerView.clipsToBounds = isStatusBarHidden
     }
     
     /// 初始化防被按的VisualEffectView
