@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import WWPrint
 import WWSideMenuViewController
 
 // MARK: - ViewController
@@ -24,11 +23,11 @@ final class SideMenuViewController: WWSideMenuViewController {
 extension SideMenuViewController: WWSideMenuViewControllerDelegate {
     
     func sideMenu(_ sideMenuController: WWSideMenuViewController, state: MenuState) {
-        wwPrint(state)
+        print(state)
     }
     
     func sideMenu(_ sideMenuController: WWSideMenuViewController, from previousViewController: UIViewController?, to nextViewController: UIViewController) {
-        wwPrint("from: \(String(describing: previousViewController)) to: \(nextViewController)")
+        print("from: \(String(describing: previousViewController)) to: \(nextViewController)")
     }
 }
 

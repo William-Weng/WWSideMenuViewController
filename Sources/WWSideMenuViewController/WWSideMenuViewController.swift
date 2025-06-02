@@ -64,7 +64,7 @@ public extension WWSideMenuViewController {
     ///   - displayPosition: 選單顯示的位置 (正面 / 反面)
     ///   - visualEffectStyle: UIBlurEffect.Style
     ///   - delegate: WWSideMenuViewControllerDelegate?
-    func initSettingWithSegue(_ segueIdentifier: SegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu"), displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style? = .systemUltraThinMaterialDark, delegate: WWSideMenuViewControllerDelegate? = nil) {
+    func initSettingWithSegue(_ segueIdentifier: SegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu"), displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style? = .systemChromeMaterialDark, delegate: WWSideMenuViewControllerDelegate? = nil) {
         
         initSetting(with: displayPosition, visualEffectStyle: visualEffectStyle, delegate: delegate)
         
@@ -222,7 +222,7 @@ private extension WWSideMenuViewController {
         
         switch state {
         case .display: position = (from: menuPosition.dismiss, to: menuPosition.display); itemContainerView.addSubview(visualEffectView); statusBarHiddenSetting(true)
-        case .dismiss: position = (from: menuPosition.display, to: menuPosition.dismiss); visualEffectView.removeFromSuperview()
+        case .dismiss: position = (from: menuPosition.display, to: menuPosition.dismiss)
         case .animation: position = (from: .zero, to: .zero)
         }
         
@@ -239,7 +239,7 @@ private extension WWSideMenuViewController {
         }
         
         animator.addCompletion { [unowned self] _ in
-            if (state == .dismiss) { statusBarHiddenSetting(false) }
+            if (state == .dismiss) { visualEffectView.removeFromSuperview(); statusBarHiddenSetting(false) }
             delegate?.sideMenu(self, state: state)
         }
         
@@ -355,7 +355,6 @@ private extension WWSideMenuViewController {
     func initVisualEffectView() {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleVisualEffectView))
-        
         visualEffectView = visualEffectViewMaker(with: visualEffectStyle)
         visualEffectView.addGestureRecognizer(tap)
     }
