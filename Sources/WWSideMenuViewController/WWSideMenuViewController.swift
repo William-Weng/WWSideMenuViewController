@@ -24,15 +24,15 @@ open class WWSideMenuViewController: UIViewController {
     var previousItemViewController: UIViewController?
     var menuViewController: UIViewController?
     
+    private var baseColor: UIColor = .clear
     private var menuPosition: MenuPosition = (.zero, .zero)
-    private var visualEffectView = UIVisualEffectView()
-    private var visualEffectStyle: UIBlurEffect.Style?
+    private var baseView = UIView()
     private var displayMenuAnimationInformation = MenuAnimationInformation(.right, 0, .easeInOut)
     private var segueIdentifier: SegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu")
     
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        initVisualEffectView()
+        initBaseView()
         delegate?.sideMenu(self, state: .dismiss)
     }
     
@@ -62,11 +62,11 @@ public extension WWSideMenuViewController {
     /// - Parameters:
     ///   - segueIdentifier: Segue的Id名稱
     ///   - displayPosition: 選單顯示的位置 (正面 / 反面)
-    ///   - visualEffectStyle: UIBlurEffect.Style
+    ///   - baseColor: 底View的顏色
     ///   - delegate: WWSideMenuViewControllerDelegate?
-    func initSettingWithSegue(_ segueIdentifier: SegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu"), displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style? = .systemChromeMaterialDark, delegate: WWSideMenuViewControllerDelegate? = nil) {
+    func initSettingWithSegue(_ segueIdentifier: SegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu"), displayPosition: MenuDisplayPosition = .front, baseColor: UIColor = .black.withAlphaComponent(0.3), delegate: WWSideMenuViewControllerDelegate? = nil) {
         
-        initSetting(with: displayPosition, visualEffectStyle: visualEffectStyle, delegate: delegate)
+        initSetting(with: displayPosition, baseColor: baseColor, delegate: delegate)
         
         self.segueIdentifier = segueIdentifier
         performSegueAction()
@@ -76,11 +76,11 @@ public extension WWSideMenuViewController {
     /// - Parameters:
     ///   - viewController: ViewController
     ///   - displayPosition: 選單顯示的位置 (正面 / 反面)
-    ///   - visualEffectStyle: UIBlurEffect.Style
+    ///   - baseColor: 底View的顏色
     ///   - delegate: WWSideMenuViewControllerDelegate?
-    func initSettingWithViewController(_ viewController: ViewController, displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style? = .systemUltraThinMaterialDark, delegate: WWSideMenuViewControllerDelegate? = nil) {
+    func initSettingWithViewController(_ viewController: ViewController, displayPosition: MenuDisplayPosition = .front, baseColor: UIColor = .black.withAlphaComponent(0.3), delegate: WWSideMenuViewControllerDelegate? = nil) {
         
-        initSetting(with: displayPosition, visualEffectStyle: visualEffectStyle, delegate: delegate)
+        initSetting(with: displayPosition, baseColor: baseColor, delegate: delegate)
         firstItemViewController = viewController.item
         
         changeItemViewController(viewController.item, completion: nil)
@@ -94,12 +94,12 @@ extension WWSideMenuViewController {
     /// 初始化基本設定
     /// - Parameters:
     ///   - displayPosition: 選單顯示的位置 (正面 / 反面)
-    ///   - visualEffectStyle: UIBlurEffect.Style
+    ///   - baseColor: 底View的顏色
     ///   - delegate: WWSideMenuViewControllerDelegate?
-    func initSetting(with displayPosition: MenuDisplayPosition = .front, visualEffectStyle: UIBlurEffect.Style?, delegate: WWSideMenuViewControllerDelegate?) {
+    func initSetting(with displayPosition: MenuDisplayPosition = .front, baseColor: UIColor, delegate: WWSideMenuViewControllerDelegate?) {
         
         self.delegate = delegate
-        self.visualEffectStyle = visualEffectStyle
+        self.baseColor = baseColor
         
         itemContainerView._autolayout(on: view)
         
@@ -168,7 +168,17 @@ extension WWSideMenuViewController {
 
 // MARK: - 小工具
 private extension WWSideMenuViewController {
+    
+    /// 初始化防被按的BaseView
+    func initBaseView() {
         
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleVisualEffectView))
+        
+        baseView.frame = itemContainerView.frame
+        baseView.backgroundColor = baseColor
+        baseView.addGestureRecognizer(tap)
+    }
+    
     /// 選單View的設定
     /// - Parameters:
     ///   - view: UIView
@@ -215,22 +225,33 @@ private extension WWSideMenuViewController {
     ///   - state: 選單狀態
     func menuAnimation(with direction: MenuPopupDirection, displayPosition: MenuDisplayPosition, duration: TimeInterval, curve: UIView.AnimationCurve, state: MenuState) {
         
+        let alpha: BaseViewAlpha
         let position: MenuMovePosition
         let transform: CGAffineTransform
         
         menuPosition = menuPosition(with: direction, displayPosition: displayPosition)
         
         switch state {
-        case .display: position = (from: menuPosition.dismiss, to: menuPosition.display); itemContainerView.addSubview(visualEffectView); statusBarHiddenSetting(true)
-        case .dismiss: position = (from: menuPosition.display, to: menuPosition.dismiss)
-        case .animation: position = (from: .zero, to: .zero)
+        case .display:
+            position = (from: menuPosition.dismiss, to: menuPosition.display)
+            alpha = (from: 0.0 , to: 1.0)
+            itemContainerView.addSubview(baseView)
+            statusBarHiddenSetting(true)
+        case .dismiss:
+            position = (from: menuPosition.display, to: menuPosition.dismiss)
+            alpha = (from: 1.0 , to: 0.0)
+        case .animation:
+            position = (from: .zero, to: .zero)
+            alpha = (from: 0.0 , to: 0.0)
         }
         
         menuPositionSetting(position.from, displayPosition: displayPosition)
+        baseView.alpha = alpha.from
         
         let animator = UIViewPropertyAnimator(duration: duration, curve: curve) { [unowned self] in
             
             delegate?.sideMenu(self, state: .animation)
+            baseView.alpha = alpha.to
             
             switch displayPosition {
             case .front, .back(_): menuPositionSetting(position.to, displayPosition: displayPosition)
@@ -239,7 +260,7 @@ private extension WWSideMenuViewController {
         }
         
         animator.addCompletion { [unowned self] _ in
-            if (state == .dismiss) { visualEffectView.removeFromSuperview(); statusBarHiddenSetting(false) }
+            if (state == .dismiss) { baseView.removeFromSuperview(); statusBarHiddenSetting(false) }
             delegate?.sideMenu(self, state: state)
         }
         
@@ -349,24 +370,5 @@ private extension WWSideMenuViewController {
         }
         
         itemContainerView.clipsToBounds = isStatusBarHidden
-    }
-    
-    /// 初始化防被按的VisualEffectView
-    func initVisualEffectView() {
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleVisualEffectView))
-        visualEffectView = visualEffectViewMaker(with: visualEffectStyle)
-        visualEffectView.addGestureRecognizer(tap)
-    }
-    
-    /// 產生UIVisualEffectView
-    /// - Parameter style: UIBlurEffect.Style?
-    /// - Returns: UIVisualEffectView
-    func visualEffectViewMaker(with style: UIBlurEffect.Style?) -> UIVisualEffectView {
-        
-        let effectView = UIVisualEffectView(frame: itemContainerView.frame)
-        if let style = style { effectView.effect = UIBlurEffect(style: style) }
-        
-        return effectView
     }
 }

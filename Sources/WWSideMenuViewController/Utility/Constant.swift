@@ -16,6 +16,7 @@ extension WWSideMenuViewController {
     typealias MenuPosition = (display: CGPoint, dismiss: CGPoint)                                                               // 側邊選單的位置 (顯示 / 隱藏)
     typealias MenuMovePosition = (from: CGPoint, to: CGPoint)                                                                   // 側邊選單的移動位置 (從 / 到)
     typealias MenuAnimationInformation = (direction: MenuPopupDirection, duration: TimeInterval, curve: UIView.AnimationCurve)  // 側邊選單動畫效果的相關資訊
+    typealias BaseViewAlpha = (from: CGFloat, to: CGFloat)                                                                      // 底部View透明度
 }
 
 // MARK: - enum
