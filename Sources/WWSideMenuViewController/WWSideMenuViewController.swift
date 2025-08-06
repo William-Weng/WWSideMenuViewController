@@ -27,13 +27,20 @@ open class WWSideMenuViewController: UIViewController {
     private var baseColor: UIColor = .clear
     private var menuPosition: MenuPosition = (.zero, .zero)
     private var baseView = UIView()
+    private var currentState: WWSideMenuViewController.MenuState = .dismiss
     private var displayMenuAnimationInformation = MenuAnimationInformation(.right, 0, .easeInOut)
     private var segueIdentifier: SegueIdentifier = (item: "WWSideMenuViewController.Item", menu: "WWSideMenuViewController.Menu")
+    
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        orientationDidChangeAction()
+    }
     
     override open func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         initBaseView()
-        delegate?.sideMenu(self, state: .dismiss)
+        currentState = .dismiss
+        delegate?.sideMenu(self, state: currentState)
     }
     
     override open func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -51,6 +58,20 @@ open class WWSideMenuViewController: UIViewController {
     /// 點擊Item會退回選單
     /// - Parameter tap: UITapGestureRecognizer
     func handleVisualEffectView(_ tap: UITapGestureRecognizer) {
+        dismiss(with: displayMenuAnimationInformation.direction, duration: displayMenuAnimationInformation.duration, curve: displayMenuAnimationInformation.curve)
+    }
+}
+
+// MARK: - @objc (private)
+@objc private extension WWSideMenuViewController {
+    
+    /// 修正當畫面旋轉後 => 退回選單
+    /// - Parameter notification: Notification
+    func orientationAction(_ notification: Notification) {
+        
+        baseView.frame = itemContainerView.frame
+        
+        if (currentState == .dismiss) { return }
         dismiss(with: displayMenuAnimationInformation.direction, duration: displayMenuAnimationInformation.duration, curve: displayMenuAnimationInformation.curve)
     }
 }
@@ -250,7 +271,8 @@ private extension WWSideMenuViewController {
         
         let animator = UIViewPropertyAnimator(duration: duration, curve: curve) { [unowned self] in
             
-            delegate?.sideMenu(self, state: .animation)
+            currentState = .animation
+            delegate?.sideMenu(self, state: currentState)
             baseView.alpha = alpha.to
             
             switch displayPosition {
@@ -261,7 +283,8 @@ private extension WWSideMenuViewController {
         
         animator.addCompletion { [unowned self] _ in
             if (state == .dismiss) { baseView.removeFromSuperview(); statusBarHiddenSetting(false) }
-            delegate?.sideMenu(self, state: state)
+            currentState = state
+            delegate?.sideMenu(self, state: currentState)
         }
         
         animator.startAnimation()
@@ -370,5 +393,13 @@ private extension WWSideMenuViewController {
         }
         
         itemContainerView.clipsToBounds = isStatusBarHidden
+    }
+    
+    
+    /// [註冊畫面旋轉事件](https://ithelp.ithome.com.tw/articles/10196923)
+    /// - Parameter block: [(UIDeviceOrientation) -> Void)](https://www.hackingwithswift.com/example-code/uikit/how-to-animate-when-your-size-class-changes-willtransitionto)
+    func orientationDidChangeAction() {
+        NotificationCenter.default.removeObserver(self)
+        NotificationCenter.default.addObserver(self, selector: #selector(orientationAction(_:)), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
 }

@@ -1,13 +1,13 @@
 {
-  "originHash" : "142032cbaaa4225f4b41cd2d6abf4d3af1010ecc2ffcf0f0b6e712b1705bc07f",
+  "originHash" : "40869bbb420bb8a92d94ca545fc8efb06505a6f20ceca6a42098e7a2d936ccf3",
   "pins" : [
     {
       "identity" : "wwsidemenuviewcontroller",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/William-Weng/WWSideMenuViewController",
+      "location" : "https://github.com/William-Weng/WWSideMenuViewController.git",
       "state" : {
-        "revision" : "a955e02e1eb13112ac3ae45117f77f97de13a8c1",
-        "version" : "1.4.5"
+        "revision" : "3f4c6a3ac8b2b0bc24510974da3efa2e33a38f0e",
+        "version" : "1.5.0"
       }
     }
   ],
